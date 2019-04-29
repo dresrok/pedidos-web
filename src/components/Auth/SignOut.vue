@@ -5,10 +5,7 @@
 <script>
 export default {
   created() {
-    this.$store.dispatch('auth/destroyToken').then(response => {
-      //this.$store.dispatch('user/resetState')
-      //this.$store.dispatch('topics/resetState')
-      //this.$store.dispatch('layout/resetState')
+    this.$store.dispatch('auth/signOut').then(response => {
       this.$router.push({ name: 'home' })
     })
   }

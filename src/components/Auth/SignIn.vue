@@ -15,12 +15,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   data() {
     return {
-      client_name: 'mobile',
+      client_name: 'web',
       email: '',
       password: '',
       serverError: ''
@@ -30,19 +28,13 @@ export default {
     onSubmit() {
       if (this.$refs.form.validate()) {
         this.$store
-          .dispatch('auth/retrieveToken', {
+          .dispatch('auth/signIn', {
             username: this.email,
             password: this.password,
             client_name: this.client_name
           })
           .then(response => {
-            //console.log(response)
-            //this.$store.dispatch('user/retrieveUserData')
             this.$router.push({ name: 'dashboard' })
-          })
-          .catch(error => {
-            console.log(error)
-            this.serverError = error.response.data
           })
       }
     }

@@ -1,7 +1,7 @@
-import { gql } from 'apollo-boost'
+import gql from 'graphql-tag'
 
 /* Login Mutation */
-export const LOGINQL = gql`
+export const LOGIN = gql`
   mutation($username: String!, $password: String!, $client_name: String!) {
     login(
       input: {
@@ -16,12 +16,68 @@ export const LOGINQL = gql`
         expires_in
         refresh_token
       }
+      me {
+        user_id
+        email
+        person {
+          person_first_name
+          person_last_name
+          person_legal_name
+          person_full_name
+          person_identification
+          person_description
+        }
+        profile {
+          profile_id
+          profile_machine_name
+          profile_name
+          menus {
+            menu_id
+            menu_name
+            menu_uri
+            menu_icon
+            menu_order
+            sub_menus {
+              menu_id
+              menu_name
+              menu_uri
+              menu_icon
+              menu_order
+            }
+          }
+        }
+      }
+      company {
+        company_id
+        company_legal_name
+        company_commercial_name
+        company_slug
+        company_image
+        city
+        company_is_certified
+        offices {
+          office_id
+          office_name
+          office_email
+          office_open_from
+          office_open_to
+          office_delivery_time
+          office_minimum_order_price
+          city
+          business_types {
+            business_type_id
+            business_type_machine_name
+            business_type_normalized_name
+            business_type_name
+          }
+        }
+      }
     }
   }
 `
 
 /* LogOut Mutation */
-export const LOGOUTQL = gql`
+export const LOGOUT = gql`
   mutation {
     logout {
       message
@@ -31,7 +87,7 @@ export const LOGOUTQL = gql`
 `
 
 /* RefreshToken Mutation */
-export const REFRESHTOKENQL = gql`
+export const REFRESH_TOKEN = gql`
   mutation {
     logout {
       message
