@@ -88,10 +88,12 @@ export const LOGOUT = gql`
 
 /* RefreshToken Mutation */
 export const REFRESH_TOKEN = gql`
-  mutation {
-    logout {
-      message
-      status
+  mutation($refresh_token: String!) {
+    refreshToken(data: { refresh_token: $refresh_token }) {
+      access_token
+      token_type
+      expires_in
+      refresh_token
     }
   }
 `

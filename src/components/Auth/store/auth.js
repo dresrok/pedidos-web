@@ -1,14 +1,10 @@
 import AuthService from '@/components/Auth/services/AuthService'
 
-const getDefaultState = () => {
-  return {
-    token: localStorage.getItem('apollo-token') || null
-  }
-}
-
 const auth = {
   namespaced: true,
-  state: getDefaultState(),
+  state: {
+    token: localStorage.getItem('apollo-token') || null
+  },
   getters: {
     isLoggedIn(state) {
       return state.token !== null

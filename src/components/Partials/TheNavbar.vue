@@ -14,10 +14,22 @@
         v-btn(dark, icon, slot="activator")
           v-icon(class="fas fa-chevron-circle-down")
         v-list(dense)
-          v-subheader Beto
+          v-subheader {{ userFullName }}
           v-list-tile(router :to="{ name: 'logout' }")
             v-list-tile-content
               v-list-tile-title.text-lg-right Cerrar sesión
             v-list-tile-action
               v-icon(class = "fas fa-sign-out-alt", color="white")
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: {
+    ...mapGetters({
+      userFullName: 'user/userFullName'
+    })
+  }
+}
+</script>
