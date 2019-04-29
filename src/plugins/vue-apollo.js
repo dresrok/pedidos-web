@@ -4,6 +4,8 @@ import {
   createApolloClient,
   restartWebsockets
 } from 'vue-cli-plugin-apollo/graphql-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { onError } from 'apollo-link-error'
 
 // Install the vue plugin
 Vue.use(VueApollo)
@@ -30,15 +32,17 @@ const defaultOptions = {
   // You need to pass a `wsEndpoint` for this to work
   websocketsOnly: false,
   // Is being rendered on the server?
-  ssr: false
+  ssr: false,
 
   // Override default apollo link
   // note: don't override httpLink here, specify httpLink options in the
   // httpLinkOptions property of defaultOptions.
-  // link: myLink
+  link: onError(({ graphQLErrors, networkError, operation, forward }) => {}),
 
   // Override default cache
-  // cache: myCache
+  cache: new InMemoryCache({
+    addTypename: false
+  })
 
   // Override the way the Authorization header is set
   // getAuth: (tokenName) => ...
@@ -63,7 +67,7 @@ export function createProvider() {
     defaultClient: apolloClient,
     defaultOptions: {
       $query: {
-        // fetchPolicy: 'cache-and-network',
+        fetchPolicy: 'network-only'
       }
     },
     errorHandler(error) {
