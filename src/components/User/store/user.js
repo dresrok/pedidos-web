@@ -1,13 +1,19 @@
+import UserService from '@/components/User/services/UserService'
+
 const user = {
   namespaced: true,
   state: {
     user: null
   },
   getters: {
-    userFullName(state) {
-      if (state.user) {
-        return state.user.person.person_full_name
-      }
+    getFullName(state) {
+      return state.user ? state.user.person.person_full_name : ''
+    },
+    getProfileName(state) {
+      return state.user ? state.user.profile.profile_name : ''
+    },
+    getMenus(state) {
+      return state.user ? state.user.profile.menus : []
     }
   },
   mutations: {
@@ -18,7 +24,11 @@ const user = {
       state.user = null
     }
   },
-  actions: {}
+  actions: {
+    retrieveData(context) {
+      return UserService.retrieveData(context)
+    }
+  }
 }
 
 export default user

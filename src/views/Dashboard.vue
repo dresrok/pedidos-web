@@ -4,6 +4,9 @@
 </template>
 <<script>
 export default {
-  name: 'Dashboard'
+  name: 'Dashboard',
+  async created() {
+    await this.$store.dispatch('user/retrieveData')
+  }
 }
 </script>
