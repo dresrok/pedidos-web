@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-footer(pa-3, color="primary", dark)
+  v-footer.grey--text(class="pa-3")
     v-spacer
     div &copy; {{ new Date().getFullYear() }}
 </template>

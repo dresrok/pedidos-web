@@ -8,26 +8,14 @@
 </template>
 
 <script>
-import TheNavbar from '@/components/Partials/TheNavbar'
-import TheFooter from '@/components/Partials/TheFooter'
-
-import { mapGetters } from 'vuex'
+import TheNavbar from '@/components/Core/Layout/TheNavbar'
+import TheFooter from '@/components/Core/Layout/TheFooter'
 
 export default {
   name: 'App',
   components: {
     TheNavbar,
     TheFooter
-  },
-  data() {
-    return {
-      //
-    }
-  },
-  computed: {
-    ...mapGetters({
-      isLoggedIn: 'auth/isLoggedIn'
-    })
   }
 }
 </script>
