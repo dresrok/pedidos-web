@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import SignIn from '@/components/Auth/SignIn.vue'
-import SignOut from '@/components/Auth/SignOut.vue'
 
-import Dashboard from '@/views/Dashboard.vue'
+import store from '@/store'
+import { init } from '@/components/Auth/guards/AuthGuard'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -22,15 +22,29 @@ export default new Router({
     {
       path: '/logout',
       name: 'logout',
-      component: SignOut
+      // route level code-splitting
+      // this generates a separate chunk (signOut.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () =>
+        import(
+          /* webpackChunkName: "signOut" */ '@/components/Auth/SignOut.vue'
+        )
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: Dashboard,
+      // route level code-splitting
+      // this generates a separate chunk (signOut.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () =>
+        import(/* webpackChunkName: "signOut" */ '@/views/Dashboard.vue'),
       meta: {
         requiresAuth: true
       }
     }
   ]
 })
+
+init(router, store)
+
+export default router
