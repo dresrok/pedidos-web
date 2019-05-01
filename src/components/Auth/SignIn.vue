@@ -4,17 +4,19 @@
       v-flex(xs12, sm6, md6)
         v-form(ref="form", @submit.prevent="onSubmit")
           v-card
-            v-card-title.headline.blue.lighten-2 Iniciar sesión
+            v-card-title.title.grey.lighten-3 Iniciar sesión
             v-card-text
                 v-text-field(label="Email", v-model="email", prepend-icon="fas fa-envelope")
                 v-text-field(label="Contraseña", type="password", v-model="password", prepend-icon="fas fa-lock")
             v-divider
             v-card-actions
               v-spacer
-              v-btn(flat, color="blue", type="submit") Acceder
+              v-btn(flat, color="blue", type="submit", :loading="loading") Acceder
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
@@ -23,6 +25,11 @@ export default {
       password: '',
       serverError: ''
     }
+  },
+  computed: {
+    ...mapGetters({
+      loading: 'auth/getLoading'
+    })
   },
   methods: {
     onSubmit() {

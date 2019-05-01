@@ -6,10 +6,11 @@ import {
   REFRESH_TOKEN
 } from '@/components/Auth/graphql/mutations'
 
-const AuthService = {}
+const authService = {}
 
-AuthService.retrieveToken = (context, payload) => {
-  return apolloClient
+authService.retrieveToken = async (context, payload) => {
+  context.commit('TOGGLE_LOADING', true)
+  return await apolloClient
     .mutate({
       mutation: LOGIN,
       variables: {
@@ -30,9 +31,12 @@ AuthService.retrieveToken = (context, payload) => {
       console.error(error)
       return error
     })
+    .finally(() => {
+      context.commit('TOGGLE_LOADING', false)
+    })
 }
 
-AuthService.destroyToken = context => {
+authService.destroyToken = context => {
   return apolloClient
     .mutate({
       mutation: LOGOUT
@@ -51,7 +55,7 @@ AuthService.destroyToken = context => {
     })
 }
 
-AuthService.refreshToken = (context, payload) => {
+authService.refreshToken = (context, payload) => {
   return apolloClient
     .mutate({
       mutation: REFRESH_TOKEN,
@@ -71,7 +75,7 @@ AuthService.refreshToken = (context, payload) => {
     })
 }
 
-AuthService.destroyPayload = context => {
+authService.destroyPayload = context => {
   return new Promise((resolve, reject) => {
     localStorage.removeItem('auth-payload')
     onLogout(apolloClient)
@@ -80,4 +84,4 @@ AuthService.destroyPayload = context => {
   })
 }
 
-export default AuthService
+export default authService
