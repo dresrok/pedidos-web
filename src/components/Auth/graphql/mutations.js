@@ -51,6 +51,7 @@ export const LOGIN = gql`
         company_id
         company_legal_name
         company_commercial_name
+        company_identification
         company_slug
         company_image
         city

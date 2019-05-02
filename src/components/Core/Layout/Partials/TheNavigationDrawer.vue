@@ -4,19 +4,20 @@
       v-flex.mt-4.text-lg-center
         //- v-avatar(size="64")
         //-   img(src="/avatar-1.png")
-        .subheading.mt-1 {{ userFullName }}
-        .caption.mt-1 {{ userProfileName }}
+        .subheading.mt-1 {{ companyName }}
+        .caption.mt-1 {{ companyIdentification }}
     v-list(dark)
       v-list-tile(
         v-for="menu in menus",
         :key="menu.menu_id",
         v-if="!menu.sub_menus.length",
-        router ,
+        router,
+        avatar,
         :to="menu.menu_uri",
         active-class="v-list__tile--highlighted",
         :class="menu.menu_uri === $route.name ? 'v-list__tile--highlighted' : ''"
       )
-        v-list-tile-action
+        v-list-tile-avatar
           v-icon(size="20") {{ menu.menu_icon }}
         v-list-tile-content
           v-list-tile-title {{ menu.menu_name }}
@@ -24,20 +25,21 @@
         v-else
       )
         template(v-slot:activator)
-          v-list-tile
-            v-list-tile-action
+          v-list-tile(avatar)
+            v-list-tile-avatar
               v-icon(size="20") {{ menu.menu_icon }}
             v-list-tile-content
               v-list-tile-title {{ menu.menu_name }}
         v-list-tile(
           v-for="subMenu in menu.sub_menus",
           :key="subMenu.menu_id",
-          router ,
+          router,
+          avatar,
           :to="subMenu.menu_uri",
           active-class="v-list__tile--highlighted",
           :class="subMenu.menu_uri === $route.name ? 'v-list__tile--highlighted' : ''"
         )
-          v-list-tile-action
+          v-list-tile-avatar
             v-icon(size="20") {{ subMenu.menu_icon }}
           v-list-tile-content
             v-list-tile-title {{ subMenu.menu_name }}
@@ -50,11 +52,11 @@ export default {
       type: Boolean,
       required: true
     },
-    userFullName: {
+    companyName: {
       type: String,
       required: true
     },
-    userProfileName: {
+    companyIdentification: {
       type: String,
       required: true
     },

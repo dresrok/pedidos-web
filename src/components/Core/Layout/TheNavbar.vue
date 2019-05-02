@@ -4,14 +4,15 @@
       :isAuthenticated="isAuthenticated",
       :drawer="drawer",
       :userFullName="userFullName",
+      :userProfileName="userProfileName",
       @onToggleDrawer="handleToggleDrawer"
     )
     the-navigation-drawer(
       v-show="isAuthenticated",
       :drawer="drawer",
-      :userFullName="userFullName",
-      :userProfileName="userProfileName",
-      :menus="menus"
+      :companyName="companyName",
+      :companyIdentification="companyIdentification",
+      :menus="menus",
       @onToggleDrawer="handleToggleDrawer"
     )
 </template>
@@ -33,6 +34,8 @@ export default {
       drawer: 'layout/getDrawer',
       userFullName: 'user/getFullName',
       userProfileName: 'user/getProfileName',
+      companyName: 'company/getCompanyName',
+      companyIdentification: 'company/getCompanyIdentification',
       menus: 'user/getMenus'
     })
   },
