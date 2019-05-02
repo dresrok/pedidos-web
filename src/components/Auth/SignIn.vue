@@ -6,8 +6,25 @@
           v-card
             v-card-title.title.grey.lighten-3 Iniciar sesión
             v-card-text
-                v-text-field(label="Email", v-model="email", prepend-icon="fas fa-envelope")
-                v-text-field(label="Contraseña", type="password", v-model="password", prepend-icon="fas fa-lock")
+                v-text-field(
+                  label="Email",
+                  prepend-icon="fas fa-envelope",
+                  v-model="email",
+                  v-validate="'required|email'",
+                  :error-messages="errors.collect('email')"
+                  data-vv-name="email",
+                  required
+                )
+                v-text-field(
+                  label="Contraseña",
+                  prepend-icon="fas fa-lock"
+                  type="password",
+                  v-model="password",
+                  v-validate="'required'",
+                  :error-messages="errors.collect('contraseña')"
+                  data-vv-name="contraseña",
+                  required
+                )
             v-divider
             v-card-actions
               v-spacer
@@ -33,17 +50,19 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (this.$refs.form.validate()) {
-        this.$store
-          .dispatch('auth/signIn', {
-            username: this.email,
-            password: this.password,
-            client_name: this.client_name
-          })
-          .then(response => {
-            this.$router.push({ name: 'dashboard' })
-          })
-      }
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          this.$store
+            .dispatch('auth/signIn', {
+              username: this.email,
+              password: this.password,
+              client_name: this.client_name
+            })
+            .then(response => {
+              this.$router.push({ name: 'dashboard' })
+            })
+        }
+      })
     }
   }
 }
