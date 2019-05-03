@@ -3,36 +3,32 @@
     h1.title.blue-grey--text.text--lighten-2 Categorías
     v-container
       v-layout.mb-3(row, wrap, justify-start)
-        v-btn(
-          depressed,
-          color="primary",
-          @click.stop="dialog = true"
-        ) Crear categoría
         category-form(
-          :dialog="dialog"
           :loading="loading"
           @onSubmit="handleSubmit"
-          @onClose="handleClose"
-          )
+        )
+        category-list(
+          :loading="loading",
+          :officeId="officeId",
+          @onSubmit="handleSubmit"
+        )
 </template>
 
 <script>
 import CategoryForm from '@/components/Category/CategoryForm'
+import CategoryList from '@/components/Category/CategoryList'
 
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    CategoryForm
-  },
-  data() {
-    return {
-      dialog: false
-    }
+    CategoryForm,
+    CategoryList
   },
   computed: {
     ...mapGetters({
-      loading: 'category/getLoading'
+      loading: 'category/getLoading',
+      officeId: 'company/getOfficeId'
     })
   },
   async created() {
@@ -40,15 +36,21 @@ export default {
     await this.$store.dispatch('company/retrieveData', {
       userId: this.$store.state.user.user.user_id
     })
+    await this.$store.dispatch('category/retrieveData', {
+      officeId: this.$store.state.company.company.offices[0].office_id
+    })
   },
   methods: {
     async handleSubmit(payload) {
-      await this.$store.dispatch('category/createCategory', {
-        payload
-      })
-    },
-    async handleClose() {
-      this.dialog = false
+      if (payload.get('category_id') === 'undefined') {
+        await this.$store.dispatch('category/createCategory', {
+          payload
+        })
+      } else {
+        await this.$store.dispatch('category/updateCategory', {
+          payload
+        })
+      }
     }
   }
 }

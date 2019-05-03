@@ -1,12 +1,27 @@
 <template lang="pug">
   v-flex(xs12)
-    v-dialog(max-width="600px", :value="dialog", persistent)
+    v-btn(
+      depressed,
+      :class="dialogSettings.buttonClass",
+      @click.stop="onShowDialog"
+    ) {{ dialogSettings.buttonText }}
+    v-dialog(max-width="600px", v-model="dialog", persistent)
       v-form(ref="categoryForm", @submit.prevent="onSubmit", enctype="multipart/form-data")
         v-card
-          v-card-title.headline.grey.lighten-2 Crear categoría
+          v-card-title.headline.grey.lighten-2 {{ dialogSettings.title }}
           v-card-text
             v-container(grid-list-md)
               v-layout(row, wrap)
+                v-flex(v-if="selectedCategory.category_image_name", xs12)
+                  v-card(flat, tile, class="d-flex")
+                    v-img(
+                      height="auto",
+                      width="100%",
+                      max-height="200px",
+                      :src="selectedCategory.category_image_medium",
+                      lazy-src="https://via.placeholder.com/300x200.png",
+                      aspect-ratio="1",
+                    )
                 v-flex(xs12)
                   v-text-field(
                     label="Nombre *",
@@ -48,10 +63,6 @@
 <script>
 export default {
   props: {
-    dialog: {
-      type: Boolean,
-      required: true
-    },
     loading: {
       type: Boolean,
       required: true
@@ -69,11 +80,28 @@ export default {
   },
   data() {
     return {
-      category: { ...this.selectedCategory },
+      dialog: false,
+      dialogSettings: {
+        buttonText: 'Crear',
+        buttonClass: 'primary ml-0',
+        title: 'Crear categoría'
+      },
+      category: {},
       image: ''
     }
   },
+  created() {
+    if (this.selectedCategory.category_id) {
+      this.dialogSettings.buttonText = 'Editar'
+      this.dialogSettings.buttonClass = 'info v-btn--small'
+      this.dialogSettings.title = 'Editar categoría'
+    }
+  },
   methods: {
+    onShowDialog() {
+      this.dialog = true
+      this.category = { ...this.selectedCategory }
+    },
     onPickFile() {
       this.$refs.categoryImage.click()
     },
@@ -89,6 +117,7 @@ export default {
       this.$validator.validate().then(async valid => {
         if (valid) {
           const payload = new FormData()
+          payload.append('category_id', this.category.category_id)
           payload.append('category_name', this.category.category_name)
           payload.append('category_image', this.image)
           await this.$emit('onSubmit', payload)
@@ -97,11 +126,15 @@ export default {
       })
     },
     onClose() {
-      this.$emit('onClose')
+      this.dialog = false
       this.image = ''
-      this.$refs.categoryForm.reset()
       this.$refs.categoryImage.value = ''
-      this.$validator.reset()
+      if (!this.category.category_id) {
+        this.$refs.categoryForm.reset()
+        this.$validator.reset()
+      } else {
+        this.category.category_image = ''
+      }
     }
   }
 }
