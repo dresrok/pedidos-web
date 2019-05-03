@@ -1,38 +1,36 @@
-<template>
-  <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-toolbar>
-
-    <v-content>
-      <HelloWorld />
-    </v-content>
-  </v-app>
+<template lang="pug">
+  v-app
+    the-navbar
+    v-content.mx-4.mb-4
+      transition(name="fade")
+        router-view
+    the-footer
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld'
+import TheNavbar from '@/components/Core/Layout/TheNavbar'
+import TheFooter from '@/components/Core/Layout/TheFooter'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  },
-  data() {
-    return {
-      //
-    }
+    TheNavbar,
+    TheFooter
   }
 }
 </script>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: all;
+  transition-duration: 0.25;
+}
+.fade-enter-active {
+  transition-delay: 0.25s;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+  transform: translateX(-25px);
+}
+</style>

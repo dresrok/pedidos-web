@@ -1,26 +1,62 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/views/Home.vue'
+import SignIn from '@/components/Auth/SignIn.vue'
+
+import store from '@/store'
+import { init } from '@/components/Auth/guards/AuthGuard'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: SignIn,
+      meta: {
+        requiresVisitor: true
+      }
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/logout',
+      name: 'logout',
       // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
+      // this generates a separate chunk (signOut.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () =>
-        import(/* webpackChunkName: "about" */ '@/views/About.vue')
+        import(
+          /* webpackChunkName: "signOut" */ '@/components/Auth/SignOut.vue'
+        )
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      // route level code-splitting
+      // this generates a separate chunk (signOut.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () =>
+        import(/* webpackChunkName: "signOut" */ '@/views/Dashboard.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/categorias',
+      name: 'categorias',
+      // route level code-splitting
+      // this generates a separate chunk (categories.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () =>
+        import(/* webpackChunkName: "categories" */ '@/views/Categories.vue'),
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
+
+init(router, store)
+
+export default router
