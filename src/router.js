@@ -41,6 +41,18 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/categorias',
+      name: 'categorias',
+      // route level code-splitting
+      // this generates a separate chunk (categories.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () =>
+        import(/* webpackChunkName: "categories" */ '@/views/Categories.vue'),
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })

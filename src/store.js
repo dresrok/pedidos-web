@@ -5,6 +5,7 @@ import layout from '@/components/Core/Layout/store/layout.js'
 import auth from '@/components/Auth/store/auth.js'
 import user from '@/components/User/store/user.js'
 import company from '@/components/Company/store/company.js'
+import category from '@/components/Category/store/category.js'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     layout,
     auth,
     user,
-    company
+    company,
+    category
   }
 })
