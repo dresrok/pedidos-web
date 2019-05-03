@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-/* Me Mutation */
+/* CompanyByUserId Query */
 export const COMPANY_BY_USER_ID = gql`
   query($userId: ID!) {
     company: companyByUserId(user_id: $userId) {

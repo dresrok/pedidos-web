@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-/* Me Mutation */
+/* Me Query */
 export const ME = gql`
   query {
     me {
