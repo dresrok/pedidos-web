@@ -11,6 +11,9 @@ const company = {
     },
     getCompanyIdentification(state) {
       return state.company ? state.company.company_identification : ''
+    },
+    getOfficeId(state) {
+      return state.company ? state.company.offices[0].office_id : ''
     }
   },
   mutations: {
