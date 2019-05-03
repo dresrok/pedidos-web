@@ -1,7 +1,7 @@
 <template lang="pug">
   v-app
     the-navbar
-    v-content.mx-4.mb-4.mt-5
+    v-content.mx-4.mb-4
       transition(name="fade")
         router-view
     the-footer

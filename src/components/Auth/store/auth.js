@@ -3,26 +3,26 @@ import authService from '@/components/Auth/services/AuthService'
 const auth = {
   namespaced: true,
   state: {
-    token: localStorage.getItem('apollo-token') || null,
-    loading: false
+    loading: false,
+    token: localStorage.getItem('apollo-token') || null
   },
   getters: {
-    getIsAuthenticated(state) {
-      return state.token !== null
-    },
     getLoading(state) {
       return state.loading
+    },
+    getIsAuthenticated(state) {
+      return state.token !== null
     }
   },
   mutations: {
+    TOGGLE_LOADING(state, payload) {
+      state.loading = payload
+    },
     SET_TOKEN(state, payload) {
       state.token = payload
     },
     DESTROY_TOKEN(state) {
       state.token = null
-    },
-    TOGGLE_LOADING(state, payload) {
-      state.loading = payload
     }
   },
   actions: {

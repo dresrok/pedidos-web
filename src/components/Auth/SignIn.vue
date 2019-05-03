@@ -28,7 +28,7 @@
             v-divider
             v-card-actions
               v-spacer
-              v-btn(flat, color="blue", type="submit", :loading="loading") Acceder
+              v-btn(flat, color="primary", type="submit", :loading="loading") Acceder
 </template>
 
 <script>
