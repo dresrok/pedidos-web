@@ -6,6 +6,7 @@ import {
 } from 'vue-cli-plugin-apollo/graphql-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
+import { createUploadLink } from 'apollo-upload-client'
 
 // Install the vue plugin
 Vue.use(VueApollo)
@@ -37,7 +38,14 @@ const defaultOptions = {
   // Override default apollo link
   // note: don't override httpLink here, specify httpLink options in the
   // httpLinkOptions property of defaultOptions.
-  link: onError(({ graphQLErrors, networkError, operation, forward }) => {}),
+  // link: onError(({ graphQLErrors, networkError, operation, forward }) => {}),
+  // Research more about it and define a new structure
+  defaultHttpLink: false,
+  httpLinkOptions: {
+    httpLink: createUploadLink({
+      uri: httpEndpoint
+    })
+  },
 
   // Override default cache
   cache: new InMemoryCache({

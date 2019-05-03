@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "apollo-link-error": "^1.1.10",
+    "apollo-upload-client": "^10.0.1",
     "core-js": "^2.6.5",
     "vee-validate": "^2.2.5",
     "vue": "^2.6.10",
