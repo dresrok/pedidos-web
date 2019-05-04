@@ -46,10 +46,10 @@ const user = {
       state.pagination.totalItems = payload.paginatorInfo.total
     },
     CREATE_CATEGORY(state, payload) {
-      if (state.pagination.totalItems <= 20) {
+      if (state.categories.length < 10) {
         state.categories.push(payload)
       }
-      state.pagination.totalItems = state.categories.length
+      state.pagination.totalItems += 1
     },
     UPDATE_CATEGORY(state, payload) {
       const index = state.categories.findIndex(

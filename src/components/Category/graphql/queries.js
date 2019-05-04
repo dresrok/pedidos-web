@@ -2,8 +2,13 @@ import gql from 'graphql-tag'
 
 /* Categories Query */
 export const CATEGORIES = gql`
-  query($count: Int!, $page: Int, $officeId: ID!) {
-    categories(count: $count, page: $page, office_id: $officeId) {
+  query($count: Int!, $page: Int, $officeId: ID!, $categoryName: String) {
+    categories(
+      count: $count
+      page: $page
+      office_id: $officeId
+      category_name: $categoryName
+    ) {
       data {
         category_id
         category_name

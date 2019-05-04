@@ -15,8 +15,9 @@ categoryService.retrieveData = (context, payload) => {
       query: CATEGORIES,
       variables: {
         count: context.state.pagination.rowsPerPage,
-        page: context.state.pagination.page,
-        officeId: payload.officeId
+        page: payload.categoryName ? null : context.state.pagination.page,
+        officeId: payload.officeId,
+        categoryName: payload.categoryName
       }
     })
     .then(({ data: { categories } }) => {

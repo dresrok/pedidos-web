@@ -2,6 +2,7 @@
   v-flex(xs12)
     v-btn(
       depressed,
+      small,
       :class="dialogSettings.buttonClass",
       @click.stop="onShowDialog"
     ) {{ dialogSettings.buttonText }}
@@ -83,7 +84,7 @@ export default {
       dialog: false,
       dialogSettings: {
         buttonText: 'Crear',
-        buttonClass: 'primary ml-0',
+        buttonClass: 'primary ml-0 mb-0',
         title: 'Crear categoría'
       },
       category: {},
@@ -93,7 +94,7 @@ export default {
   created() {
     if (this.selectedCategory.category_id) {
       this.dialogSettings.buttonText = 'Editar'
-      this.dialogSettings.buttonClass = 'info v-btn--small'
+      this.dialogSettings.buttonClass = 'info'
       this.dialogSettings.title = 'Editar categoría'
     }
   },
