@@ -38,7 +38,7 @@ export default {
     })
   },
   async created() {
-    await this.$store.dispatch('category/retrieveData', {
+    await this.$store.dispatch('category/paginateCategories', {
       officeId: this.officeId
     })
   },
@@ -55,7 +55,7 @@ export default {
       }
     },
     async handleSearch(payload) {
-      await this.$store.dispatch('category/retrieveData', {
+      await this.$store.dispatch('category/paginateCategories', {
         officeId: this.officeId,
         categoryName: payload.categoryName
       })

@@ -1,9 +1,9 @@
 import gql from 'graphql-tag'
 
-/* Categories Query */
-export const CATEGORIES = gql`
+/* paginateCategories Query */
+export const PAGINATE_CATEGORIES = gql`
   query($count: Int!, $page: Int, $officeId: ID!, $categoryName: String) {
-    categories(
+    categories: paginateCategories(
       count: $count
       page: $page
       office_id: $officeId

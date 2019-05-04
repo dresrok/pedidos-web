@@ -4,15 +4,15 @@ import {
   CREATE_CATEGORY,
   UPDATE_CATEGORY
 } from '@/components/Category/graphql/mutations'
-import { CATEGORIES } from '@/components/Category/graphql/queries'
+import { PAGINATE_CATEGORIES } from '@/components/Category/graphql/queries'
 
 const categoryService = {}
 
-categoryService.retrieveData = (context, payload) => {
+categoryService.paginateCategories = (context, payload) => {
   context.commit('TOGGLE_PENDING', true)
   return apolloClient
     .query({
-      query: CATEGORIES,
+      query: PAGINATE_CATEGORIES,
       variables: {
         count: context.state.pagination.rowsPerPage,
         page: payload.categoryName ? null : context.state.pagination.page,
@@ -21,7 +21,7 @@ categoryService.retrieveData = (context, payload) => {
       }
     })
     .then(({ data: { categories } }) => {
-      context.commit('RETRIEVE_DATA', categories)
+      context.commit('PAGINATE_CATEGORIES', categories)
       return categories
     })
     .catch(error => {

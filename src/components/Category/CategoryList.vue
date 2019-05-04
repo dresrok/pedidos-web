@@ -2,7 +2,7 @@
   v-flex(xs12)
     v-data-table(
       :headers="headers"
-      :items="categories"
+      :items="paginatedCategories"
       :pagination.sync="pagination"
       :total-items="paginationInfo.totalItems"
       :rows-per-page-items="paginationInfo.rowsPerPageItems"
@@ -60,7 +60,7 @@ export default {
   computed: {
     ...mapGetters({
       pending: 'category/getPending',
-      categories: 'category/getCategories',
+      paginatedCategories: 'category/getPaginatedCategories',
       paginationInfo: 'category/getPagination',
       officeId: 'company/getOfficeId'
     }),
@@ -69,9 +69,9 @@ export default {
         return this.paginationInfo
       },
       set(payload) {
-        if (this.officeId && this.categories.length > 0) {
+        if (this.officeId && this.paginatedCategories.length > 0) {
           this.$store.commit('category/SET_PAGINATION', payload)
-          this.$store.dispatch('category/retrieveData', {
+          this.$store.dispatch('category/paginateCategories', {
             officeId: this.officeId
           })
         }

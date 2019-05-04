@@ -13,13 +13,13 @@
           v-card-text
             v-container(grid-list-md)
               v-layout(row, wrap)
-                v-flex(v-if="selectedCategory.category_image_name", xs12)
+                v-flex(v-if="category.category_image_name", xs12)
                   v-card(flat, tile, class="d-flex")
                     v-img(
                       height="auto",
                       width="100%",
                       max-height="200px",
-                      :src="selectedCategory.category_image_medium",
+                      :src="category.category_image_medium",
                       lazy-src="https://via.placeholder.com/300x200.png",
                       aspect-ratio="1",
                     )

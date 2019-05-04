@@ -13,7 +13,7 @@ const category = {
       totalItems: 0,
       rowsPerPageItems: [10, 20, 50, 100]
     },
-    categories: []
+    paginatedCategories: []
   },
   getters: {
     getLoading(state) {
@@ -25,8 +25,8 @@ const category = {
     getPagination(state) {
       return state.pagination
     },
-    getCategories(state) {
-      return state.categories
+    getPaginatedCategories(state) {
+      return state.paginatedCategories
     }
   },
   mutations: {
@@ -39,23 +39,23 @@ const category = {
     SET_PAGINATION(state, payload) {
       state.pagination = payload
     },
-    RETRIEVE_DATA(state, payload) {
-      state.categories = payload.data
+    PAGINATE_CATEGORIES(state, payload) {
+      state.paginatedCategories = payload.data
       state.pagination.page = payload.paginatorInfo.currentPage
       state.pagination.rowsPerPage = payload.paginatorInfo.perPage
       state.pagination.totalItems = payload.paginatorInfo.total
     },
     CREATE_CATEGORY(state, payload) {
-      if (state.categories.length < 10) {
-        state.categories.push(payload)
+      if (state.paginatedCategories.length < 10) {
+        state.paginatedCategories.push(payload)
       }
       state.pagination.totalItems += 1
     },
     UPDATE_CATEGORY(state, payload) {
-      const index = state.categories.findIndex(
+      const index = state.paginatedCategories.findIndex(
         item => item.category_id === payload.category_id
       )
-      state.categories.splice(index, 1, {
+      state.paginatedCategories.splice(index, 1, {
         category_id: payload.category_id,
         category_name: payload.category_name,
         category_image_name: payload.category_image_name,
@@ -65,8 +65,8 @@ const category = {
     }
   },
   actions: {
-    retrieveData(context, payload) {
-      return categoryService.retrieveData(context, payload)
+    paginateCategories(context, payload) {
+      return categoryService.paginateCategories(context, payload)
     },
     createCategory(context, payload) {
       return categoryService.createCategory(context, payload)
