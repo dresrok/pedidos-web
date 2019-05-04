@@ -69,7 +69,7 @@ export default {
         return this.paginationInfo
       },
       set(payload) {
-        if (this.officeId) {
+        if (this.officeId && this.categories.length > 0) {
           this.$store.commit('category/SET_PAGINATION', payload)
           this.$store.dispatch('category/retrieveData', {
             officeId: this.officeId

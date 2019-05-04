@@ -1,5 +1,5 @@
 <template lang="pug">
-  .topics.my-4
+  .categories.my-4
     h1.title.grey--text.text--lighten-1 Categorías
     v-container(grid-list-md)
       v-layout.mb-3(row, wrap, justify-start)
@@ -38,10 +38,6 @@ export default {
     })
   },
   async created() {
-    await this.$store.dispatch('user/retrieveData')
-    await this.$store.dispatch('company/retrieveData', {
-      userId: this.userId
-    })
     await this.$store.dispatch('category/retrieveData', {
       officeId: this.officeId
     })
