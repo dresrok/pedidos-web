@@ -6,10 +6,13 @@ const user = {
     user: null
   },
   getters: {
-    getFullName(state) {
+    getUserId(state) {
+      return state.user ? state.user.user_id : ''
+    },
+    getUserFullName(state) {
       return state.user ? state.user.person.person_full_name : ''
     },
-    getProfileName(state) {
+    getUserProfileName(state) {
       return state.user ? state.user.profile.profile_name : ''
     },
     getMenus(state) {

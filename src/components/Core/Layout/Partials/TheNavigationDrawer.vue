@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-navigation-drawer.orange.lighten-2(app, :value="drawer", @input="onToggleDrawer")
+  v-navigation-drawer.yellow.darken-3(app, :value="drawer", @input="onToggleDrawer")
     v-layout.white--text(column, align-center)
       v-flex.mt-4.text-lg-center
         //- v-avatar(size="64")

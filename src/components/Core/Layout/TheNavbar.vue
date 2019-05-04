@@ -32,8 +32,8 @@ export default {
     ...mapGetters({
       isAuthenticated: 'auth/getIsAuthenticated',
       drawer: 'layout/getDrawer',
-      userFullName: 'user/getFullName',
-      userProfileName: 'user/getProfileName',
+      userFullName: 'user/getUserFullName',
+      userProfileName: 'user/getUserProfileName',
       companyName: 'company/getCompanyName',
       companyIdentification: 'company/getCompanyIdentification',
       menus: 'user/getMenus'
