@@ -4,6 +4,7 @@ import SignIn from '@/components/Auth/SignIn.vue'
 
 import store from '@/store'
 import { init } from '@/components/Auth/guards/AuthGuard'
+import routeGuard from '@/components/Core/guards/RouteGuard'
 
 Vue.use(Router)
 
@@ -22,9 +23,6 @@ const router = new Router({
     {
       path: '/logout',
       name: 'logout',
-      // route level code-splitting
-      // this generates a separate chunk (signOut.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () =>
         import(
           /* webpackChunkName: "signOut" */ '@/components/Auth/SignOut.vue'
@@ -33,26 +31,32 @@ const router = new Router({
     {
       path: '/dashboard',
       name: 'dashboard',
-      // route level code-splitting
-      // this generates a separate chunk (signOut.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () =>
-        import(/* webpackChunkName: "signOut" */ '@/views/Dashboard.vue'),
+        import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue'),
       meta: {
         requiresAuth: true
-      }
+      },
+      beforeEnter: routeGuard.beforeEnter
     },
     {
       path: '/categorias',
       name: 'categorias',
-      // route level code-splitting
-      // this generates a separate chunk (categories.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "categories" */ '@/views/Categories.vue'),
       meta: {
         requiresAuth: true
-      }
+      },
+      beforeEnter: routeGuard.beforeEnter
+    },
+    {
+      path: '/productos',
+      name: 'productos',
+      component: () =>
+        import(/* webpackChunkName: "products" */ '@/views/Products.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      beforeEnter: routeGuard.beforeEnter
     }
   ]
 })

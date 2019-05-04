@@ -2,9 +2,9 @@ import { apolloClient } from '@/plugins/vue-apollo'
 
 import { ME } from '@/components/User/graphql/queries'
 
-const UserService = {}
+const userService = {}
 
-UserService.retrieveData = context => {
+userService.retrieveData = context => {
   if (!context.state.user) {
     return apolloClient
       .query({
@@ -21,4 +21,4 @@ UserService.retrieveData = context => {
   }
 }
 
-export default UserService
+export default userService

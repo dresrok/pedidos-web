@@ -1,4 +1,4 @@
-import UserService from '@/components/User/services/UserService'
+import userService from '@/components/User/services/UserService'
 
 const user = {
   namespaced: true,
@@ -29,7 +29,7 @@ const user = {
   },
   actions: {
     retrieveData(context) {
-      return UserService.retrieveData(context)
+      return userService.retrieveData(context)
     }
   }
 }
