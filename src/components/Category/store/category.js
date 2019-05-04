@@ -1,6 +1,6 @@
 import categoryService from '@/components/Category/services/CategoryService'
 
-const user = {
+const category = {
   namespaced: true,
   state: {
     loading: false,
@@ -77,4 +77,4 @@ const user = {
   }
 }
 
-export default user
+export default category

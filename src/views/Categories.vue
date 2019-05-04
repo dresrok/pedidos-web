@@ -18,16 +18,16 @@
 </template>
 
 <script>
-import CategorySearchForm from '@/components/Category/CategorySearchForm'
 import CategoryForm from '@/components/Category/CategoryForm'
+import CategorySearchForm from '@/components/Category/CategorySearchForm'
 import CategoryList from '@/components/Category/CategoryList'
 
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    CategorySearchForm,
     CategoryForm,
+    CategorySearchForm,
     CategoryList
   },
   computed: {
