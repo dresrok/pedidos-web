@@ -18,7 +18,7 @@
         :class="menu.menu_uri === $route.name ? 'v-list__tile--highlighted' : ''"
       )
         v-list-tile-avatar
-          v-icon(size="20") {{ menu.menu_icon }}
+          v-icon {{ menu.menu_icon }}
         v-list-tile-content
           v-list-tile-title {{ menu.menu_name }}
       v-list-group(
@@ -27,7 +27,7 @@
         template(v-slot:activator)
           v-list-tile(avatar)
             v-list-tile-avatar
-              v-icon(size="20") {{ menu.menu_icon }}
+              v-icon {{ menu.menu_icon }}
             v-list-tile-content
               v-list-tile-title {{ menu.menu_name }}
         v-list-tile(
@@ -40,7 +40,7 @@
           :class="subMenu.menu_uri === $route.name ? 'v-list__tile--highlighted' : ''"
         )
           v-list-tile-avatar
-            v-icon(size="20") {{ subMenu.menu_icon }}
+            v-icon {{ subMenu.menu_icon }}
           v-list-tile-content
             v-list-tile-title {{ subMenu.menu_name }}
 </template>
@@ -72,10 +72,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus">
-.v-list__group
-  .v-list__group__header__append-icon
-    i
-      font-size: 20px
-</style>

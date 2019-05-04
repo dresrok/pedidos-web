@@ -33,4 +33,7 @@ export default {
   opacity: 0;
   transform: translateX(-25px);
 }
+.v-icon {
+  font-size: 20px !important;
+}
 </style>
