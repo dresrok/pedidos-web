@@ -5,12 +5,6 @@
 
 <script>
 export default {
-  name: 'Dashboard',
-  async created() {
-    await this.$store.dispatch('user/retrieveData')
-    await this.$store.dispatch('company/retrieveData', {
-      userId: this.$store.state.user.user.user_id
-    })
-  }
+  name: 'Dashboard'
 }
 </script>
