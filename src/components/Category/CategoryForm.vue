@@ -100,7 +100,7 @@ export default {
     onShowDialog() {
       this.dialog = true
       if (this.selectedCategory.category_id) {
-        this.category = { ...this.selectedCategory }
+        this.category = JSON.parse(JSON.stringify(this.selectedCategory))
       }
     },
     onPickFile() {
