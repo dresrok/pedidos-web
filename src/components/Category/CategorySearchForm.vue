@@ -7,18 +7,17 @@
             v-layout(row, wrap, align-center)
               v-flex(xs6)
                 v-text-field(
-                  label="Nombre *",
+                  label="Nombre",
                   prepend-icon="fas fa-pen",
-                  v-model="category.category_name"
-                  v-validate="'required|max:64'",
-                  :counter="64"
-                  :error-messages="errors.collect('nombre')"
-                  data-vv-name="nombre",
-                  required
+                  v-model="category.category_name",
+                  v-validate="'max:64'",
+                  :counter="64",
+                  :error-messages="errors.collect('nombre')",
+                  data-vv-name="nombre"
                 )
               v-flex(xs6)
                 v-btn.white--text(depressed, small, color="grey", @click="onClear") Limpiar
-                v-btn(depressed, small, color="info", type="submit") Buscar
+                v-btn(depressed, small, color="info", type="submit", :disabled="disabled") Buscar
 </template>
 <script>
 export default {
@@ -27,6 +26,14 @@ export default {
       category: {
         category_name: ''
       }
+    }
+  },
+  computed: {
+    disabled() {
+      if (this.category.category_name) {
+        return false
+      }
+      return true
     }
   },
   methods: {
