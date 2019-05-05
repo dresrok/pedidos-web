@@ -23,8 +23,12 @@ authService.retrieveToken = async (context, payload) => {
       localStorage.setItem('auth-payload', JSON.stringify(token))
       onLogin(apolloClient, token.access_token)
       context.commit('SET_TOKEN', token.access_token)
-      context.commit('user/SET_USER', me, { root: true })
-      context.commit('company/SET_COMPANY', company, { root: true })
+      context.commit('user/SET_USER', me, {
+        root: true
+      })
+      context.commit('company/SET_COMPANY', company, {
+        root: true
+      })
       return token
     })
     .catch(error => {
@@ -44,9 +48,11 @@ authService.destroyToken = context => {
     .then(data => {
       localStorage.removeItem('auth-payload')
       onLogout(apolloClient)
-      context.commit('DESTROY_TOKEN')
-      context.commit('user/DESTROY_USER', null, { root: true })
-      context.commit('company/DESTROY_COMPANY', null, { root: true })
+
+      context.commit('RESET', null, {
+        root: true
+      })
+      console.log('reset')
       return data
     })
     .catch(error => {
