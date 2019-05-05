@@ -34,6 +34,9 @@ export default {
   transform: translateX(-25px);
 }
 .v-icon {
-  font-size: 20px !important;
+  font-size: 20px;
+}
+.v-list--dense .v-list__tile .v-icon {
+  font-size: 20px;
 }
 </style>
