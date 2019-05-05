@@ -6,6 +6,7 @@ import auth from '@/components/Auth/store/auth.js'
 import user from '@/components/User/store/user.js'
 import company from '@/components/Company/store/company.js'
 import category from '@/components/Category/store/category.js'
+import product from '@/components/Product/store/product.js'
 
 Vue.use(Vuex)
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     auth,
     user,
     company,
-    category
+    category,
+    product
   }
 })
