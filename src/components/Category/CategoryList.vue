@@ -11,7 +11,7 @@
       class="elevation-1"
     )
       template(slot="items", slot-scope="props")
-        td()
+        td
           v-avatar(
             :size="36",
             color="grey lighten-4"
@@ -19,7 +19,7 @@
             v-img(
               height="auto",
               width="100%",
-              max-height="34px"
+              max-height="36px"
               :src="props.item.category_image_mini",
               lazy-src="https://via.placeholder.com/30x30.png?text=C",
               aspect-ratio="1",

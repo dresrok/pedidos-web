@@ -4,7 +4,10 @@ import {
   CREATE_CATEGORY,
   UPDATE_CATEGORY
 } from '@/components/Category/graphql/mutations'
-import { PAGINATE_CATEGORIES } from '@/components/Category/graphql/queries'
+import {
+  PAGINATE_CATEGORIES,
+  RETRIEVE_CATEGORIES
+} from '@/components/Category/graphql/queries'
 
 const categoryService = {}
 
@@ -46,6 +49,7 @@ categoryService.createCategory = (context, { payload }) => {
     })
     .then(({ data: { category } }) => {
       context.commit('CREATE_CATEGORY', category)
+      context.commit('APPEND_TO_CATEGORY_LIST', category)
       return category
     })
     .catch(error => {
@@ -70,6 +74,7 @@ categoryService.updateCategory = (context, { payload }) => {
     })
     .then(({ data: { category } }) => {
       context.commit('UPDATE_CATEGORY', category)
+      context.commit('REFRESH_IN_CATEGORY_LIST', category)
       return category
     })
     .catch(error => {
@@ -78,6 +83,24 @@ categoryService.updateCategory = (context, { payload }) => {
     })
     .finally(() => {
       context.commit('TOGGLE_LOADING', false)
+    })
+}
+
+categoryService.retrieveCategories = (context, payload) => {
+  return apolloClient
+    .query({
+      query: RETRIEVE_CATEGORIES,
+      variables: {
+        officeId: payload.officeId
+      }
+    })
+    .then(({ data: { categories } }) => {
+      context.commit('RETRIEVE_CATEGORIES', categories)
+      return categories
+    })
+    .catch(error => {
+      console.error(error)
+      return error
     })
 }
 

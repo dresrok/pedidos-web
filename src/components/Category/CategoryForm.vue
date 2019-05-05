@@ -21,16 +21,16 @@
                       max-height="200px",
                       :src="category.category_image_medium",
                       lazy-src="https://via.placeholder.com/300x200.png",
-                      aspect-ratio="1",
+                      aspect-ratio="1"
                     )
                 v-flex(xs12)
                   v-text-field(
                     label="Nombre *",
                     prepend-icon="fas fa-pen",
-                    v-model="category.category_name"
+                    v-model="category.category_name",
                     v-validate="'required|max:64'",
-                    :counter="64"
-                    :error-messages="errors.collect('nombre')"
+                    :counter="64",
+                    :error-messages="errors.collect('nombre')",
                     data-vv-name="nombre",
                     required
                   )

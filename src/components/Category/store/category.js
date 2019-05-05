@@ -13,7 +13,8 @@ const category = {
       totalItems: 0,
       rowsPerPageItems: [10, 20, 50, 100]
     },
-    paginatedCategories: []
+    paginatedCategories: [],
+    categoryList: []
   },
   getters: {
     getLoading(state) {
@@ -27,6 +28,9 @@ const category = {
     },
     getPaginatedCategories(state) {
       return state.paginatedCategories
+    },
+    getCategoryList(state) {
+      return state.categoryList
     }
   },
   mutations: {
@@ -62,6 +66,21 @@ const category = {
         category_image_mini: payload.category_image_mini,
         category_image_medium: payload.category_image_medium
       })
+    },
+    RETRIEVE_CATEGORIES(state, payload) {
+      state.categoryList = payload
+    },
+    APPEND_TO_CATEGORY_LIST(state, payload) {
+      state.categoryList.push(payload)
+    },
+    REFRESH_IN_CATEGORY_LIST(state, payload) {
+      const index = state.categoryList.findIndex(
+        item => item.category_id === payload.category_id
+      )
+      state.categoryList.splice(index, 1, {
+        category_id: payload.category_id,
+        category_name: payload.category_name
+      })
     }
   },
   actions: {
@@ -73,6 +92,9 @@ const category = {
     },
     updateCategory(context, payload) {
       return categoryService.updateCategory(context, payload)
+    },
+    retrieveCategories(context, payload) {
+      return categoryService.retrieveCategories(context, payload)
     }
   }
 }

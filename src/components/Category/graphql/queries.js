@@ -29,3 +29,13 @@ export const PAGINATE_CATEGORIES = gql`
     }
   }
 `
+
+/* retrieveCategories Query */
+export const RETRIEVE_CATEGORIES = gql`
+  query($officeId: ID!) {
+    categories: retrieveCategories(office_id: $officeId) {
+      category_id
+      category_name
+    }
+  }
+`
