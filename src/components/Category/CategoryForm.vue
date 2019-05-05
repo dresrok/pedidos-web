@@ -71,12 +71,7 @@ export default {
     selectedCategory: {
       type: Object,
       required: false,
-      default() {
-        return {
-          category_name: '',
-          category_image: ''
-        }
-      }
+      default: () => ({})
     }
   },
   data() {
@@ -87,7 +82,10 @@ export default {
         buttonClass: 'primary ml-0 mb-0',
         title: 'Crear categoría'
       },
-      category: {},
+      category: {
+        category_name: '',
+        category_image: ''
+      },
       image: ''
     }
   },
@@ -101,7 +99,9 @@ export default {
   methods: {
     onShowDialog() {
       this.dialog = true
-      this.category = { ...this.selectedCategory }
+      if (this.selectedCategory.category_id) {
+        this.category = { ...this.selectedCategory }
+      }
     },
     onPickFile() {
       this.$refs.categoryImage.click()
