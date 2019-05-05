@@ -2,10 +2,11 @@
   v-flex(xs12)
     v-btn(
       depressed,
-      small,
       :class="dialogSettings.buttonClass",
       @click.stop="onShowDialog"
-    ) {{ dialogSettings.buttonText }}
+    ) 
+      v-icon(size="16", :class="dialogSettings.buttonIconClass") {{ dialogSettings.buttonIcon }}
+      | {{ dialogSettings.buttonText }}
     v-dialog(max-width="600px", v-model="dialog", persistent)
       v-form(ref="categoryForm", @submit.prevent="onSubmit", enctype="multipart/form-data")
         v-card
@@ -78,6 +79,8 @@ export default {
     return {
       dialog: false,
       dialogSettings: {
+        buttonIcon: 'fas fa-plus-circle',
+        buttonIconClass: 'v-icon--left',
         buttonText: 'Crear',
         buttonClass: 'primary ml-0 mb-0',
         title: 'Crear categoría'
@@ -91,8 +94,10 @@ export default {
   },
   created() {
     if (this.selectedCategory.category_id) {
-      this.dialogSettings.buttonText = 'Editar'
-      this.dialogSettings.buttonClass = 'info'
+      this.dialogSettings.buttonIcon = 'fas fa-pen'
+      this.dialogSettings.buttonText = ''
+      this.dialogSettings.buttonIconClass = ''
+      this.dialogSettings.buttonClass = 'info v-btn--floating v-btn--small'
       this.dialogSettings.title = 'Editar categoría'
     }
   },
