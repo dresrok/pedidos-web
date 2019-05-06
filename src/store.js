@@ -10,24 +10,19 @@ import product from '@/components/Product/store/product.js'
 
 Vue.use(Vuex)
 
-let initialState = {
-  layout: layout.state,
-  auth: auth.state,
-  user: user.state,
-  company: company.state
+const parseAndStringifyState = defaultState =>
+  JSON.parse(JSON.stringify(defaultState))
+
+const initialState = {
+  layout: parseAndStringifyState(layout.state),
+  auth: parseAndStringifyState(auth.state),
+  user: parseAndStringifyState(user.state),
+  company: parseAndStringifyState(company.state),
+  category: parseAndStringifyState(category.state),
+  product: parseAndStringifyState(product.state)
 }
 
 export default new Vuex.Store({
-  mutations: {
-    RESET(state) {
-      Object.keys(state).forEach(key => {
-        console.log('key ' + key)
-        console.dir('initialState ' + initialState[key])
-        console.dir('state ' + state[key])
-        state[key] = initialState[key]
-      })
-    }
-  },
   modules: {
     layout,
     auth,
@@ -35,5 +30,10 @@ export default new Vuex.Store({
     company,
     category,
     product
+  },
+  mutations: {
+    RESET_STATE(state) {
+      this.replaceState(initialState)
+    }
   }
 })

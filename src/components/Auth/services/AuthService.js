@@ -40,19 +40,17 @@ authService.retrieveToken = async (context, payload) => {
     })
 }
 
-authService.destroyToken = context => {
-  return apolloClient
+authService.destroyToken = async context => {
+  return await apolloClient
     .mutate({
       mutation: LOGOUT
     })
     .then(data => {
       localStorage.removeItem('auth-payload')
       onLogout(apolloClient)
-
-      context.commit('RESET', null, {
+      context.commit('RESET_STATE', null, {
         root: true
       })
-      console.log('reset')
       return data
     })
     .catch(error => {
