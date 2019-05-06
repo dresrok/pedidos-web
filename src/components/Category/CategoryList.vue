@@ -1,13 +1,13 @@
 <template lang="pug">
   v-flex(xs12)
     v-data-table(
-      :headers="headers"
-      :items="paginatedCategories"
-      :pagination.sync="pagination"
-      :total-items="paginationInfo.totalItems"
-      :rows-per-page-items="paginationInfo.rowsPerPageItems"
-      :loading="pending"
-      no-data="No hay categorías disponibles"
+      :headers="headers",
+      :items="paginatedCategories",
+      :pagination.sync="pagination",
+      :total-items="paginationInfo.totalItems",
+      :rows-per-page-items="paginationInfo.rowsPerPageItems",
+      :loading="pending",
+      no-data="No hay categorías disponibles",
       class="elevation-1"
     )
       template(slot="items", slot-scope="props")
@@ -19,7 +19,7 @@
             v-img(
               height="auto",
               width="100%",
-              max-height="36px"
+              max-height="36px",
               :src="props.item.category_image_mini",
               lazy-src="https://via.placeholder.com/30x30.png?text=C",
               aspect-ratio="1",
@@ -28,8 +28,8 @@
           span.ml-2 {{ props.item.category_name }}
         td
           category-form(
-            :loading="loading"
-            :selectedCategory="props.item"
+            :loading="loading",
+            :selectedCategory="props.item",
             @onSubmit="handleSubmit"
           )
 </template>
