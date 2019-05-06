@@ -30,6 +30,8 @@ export const PAGINATE_PRODUCTS = gql`
         prices {
           product_price_id
           product_price_amount
+          product_price_status
+          product_id
         }
       }
       paginatorInfo {

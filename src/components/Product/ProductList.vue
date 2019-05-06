@@ -34,10 +34,14 @@
             :selectedProduct="props.item",
             @onSubmit="handleSubmit"
           )
+          product-prices(
+            :selectedProduct="props.item"
+          )
 </template>
 
 <script>
 import ProductForm from '@/components/Product/ProductForm'
+import ProductPrices from '@/components/Product/ProductPrices'
 
 import { mapGetters } from 'vuex'
 
@@ -49,7 +53,8 @@ export default {
     }
   },
   components: {
-    ProductForm
+    ProductForm,
+    ProductPrices
   },
   data() {
     return {

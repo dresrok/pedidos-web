@@ -1,5 +1,7 @@
 import productService from '@/components/Product/services/ProductService'
 
+import price from '@/components/ProductPrice/store/price'
+
 const product = {
   namespaced: true,
   state: {
@@ -58,6 +60,35 @@ const product = {
       state.paginatedProducts.splice(index, 1, {
         ...payload
       })
+    },
+    CREATE_PRICE(state, payload) {
+      const productIndex = state.paginatedProducts.findIndex(
+        item => item.product_id === payload.product_id
+      )
+      const product = state.paginatedProducts.find(
+        item => item.product_id === payload.product_id
+      )
+      product.prices.unshift(payload)
+      state.paginatedProducts.splice(productIndex, 1, {
+        ...product
+      })
+    },
+    UPDATE_PRICE(state, payload) {
+      const productIndex = state.paginatedProducts.findIndex(
+        item => item.product_id === payload.product_id
+      )
+      const product = state.paginatedProducts.find(
+        item => item.product_id === payload.product_id
+      )
+      const priceIndex = product.prices.findIndex(
+        item => item.product_price_id === payload.product_price_id
+      )
+      product.prices.splice(priceIndex, 1, {
+        ...payload
+      })
+      state.paginatedProducts.splice(productIndex, 1, {
+        ...product
+      })
     }
   },
   actions: {
@@ -70,6 +101,9 @@ const product = {
     updateProduct(context, payload) {
       return productService.updateProduct(context, payload)
     }
+  },
+  modules: {
+    price
   }
 }
 

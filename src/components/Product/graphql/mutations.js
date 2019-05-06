@@ -31,6 +31,8 @@ export const CREATE_PRODUCT = gql`
       prices {
         product_price_id
         product_price_amount
+        product_price_status
+        product_id
       }
     }
   }
@@ -65,6 +67,8 @@ export const UPDATE_PRODUCT = gql`
       prices {
         product_price_id
         product_price_amount
+        product_price_status
+        product_id
       }
     }
   }
