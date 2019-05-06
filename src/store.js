@@ -7,6 +7,7 @@ import user from '@/components/User/store/user.js'
 import company from '@/components/Company/store/company.js'
 import category from '@/components/Category/store/category.js'
 import product from '@/components/Product/store/product.js'
+import price from '@/components/ProductPrice/store/price.js'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,10 @@ const initialState = {
   user: parseAndStringifyState(user.state),
   company: parseAndStringifyState(company.state),
   category: parseAndStringifyState(category.state),
-  product: parseAndStringifyState(product.state)
+  product: {
+    ...parseAndStringifyState(product.state),
+    price: parseAndStringifyState(price.state)
+  }
 }
 
 export default new Vuex.Store({
