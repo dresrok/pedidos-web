@@ -1,102 +1,105 @@
 <template lang="pug">
-  v-flex(xs12)
-    v-btn(
-      depressed,
-      :class="dialogSettings.buttonClass",
-      @click.stop="onShowDialog"
-    ) 
-      v-icon(size="16", :class="dialogSettings.buttonIconClass") {{ dialogSettings.buttonIcon }}
-      | {{ dialogSettings.buttonText }}
-    v-dialog(max-width="600px", v-model="dialog", persistent)
-      v-form(ref="productForm", @submit.prevent="onSubmit", enctype="multipart/form-data")
-        v-card
-          v-card-title.headline.grey.lighten-2 {{ dialogSettings.title }}
-          v-card-text
-            v-container(grid-list-md)
-              v-layout(row, wrap)
-                v-flex(v-if="product.product_image_name", xs12)
-                  v-card(flat, tile, class="d-flex")
-                    v-img(
-                      height="auto",
-                      width="100%",
-                      max-height="200px",
-                      :src="product.product_image_medium",
-                      lazy-src="https://via.placeholder.com/300x200.png",
-                      aspect-ratio="1"
-                    )
-                v-flex(xs12)
-                  v-select(
-                    label="Categoría *",
-                    prepend-icon="fas fa-stream",
-                    menu-props="offsetY",
-                    :items="categoryList",
-                    item-text="category_name",
-                    item-value="category_id",
-                    v-model="product.category.category_id",
-                    v-validate="'required'",
-                    :error-messages="errors.collect('categoría')",
-                    data-vv-name="categoría",
-                    required
+  v-dialog(max-width="600px", v-model="dialog", persistent)
+    v-tooltip(top, slot="activator")
+      v-btn(
+        depressed,
+        slot="activator",
+        :class="dialogSettings.buttonClass",
+        @click.stop="onShowDialog"
+      ) 
+        v-icon(size="16", :class="dialogSettings.buttonIconClass") {{ dialogSettings.buttonIcon }}
+        | {{ dialogSettings.buttonText }}
+      span {{ dialogSettings.title }}
+    v-form(ref="productForm", @submit.prevent="onSubmit", enctype="multipart/form-data")
+      v-card
+        v-card-title.headline.grey.lighten-2 {{ dialogSettings.title }}
+        v-card-text
+          v-container(grid-list-md)
+            v-layout(row, wrap)
+              v-flex(v-if="product.product_image_name", xs12)
+                v-card(flat, tile, class="d-flex")
+                  v-img(
+                    height="auto",
+                    width="100%",
+                    max-height="200px",
+                    :src="product.product_image_medium",
+                    lazy-src="https://via.placeholder.com/300x200.png",
+                    aspect-ratio="1"
                   )
-                v-flex(xs12)
-                  v-text-field(
-                    label="Nombre *",
-                    prepend-icon="fas fa-pen",
-                    v-model="product.product_name",
-                    v-validate="'required|max:64'",
-                    :counter="64",
-                    :error-messages="errors.collect('nombre')",
-                    data-vv-name="nombre",
-                    required
-                  )
-                v-flex(xs12)
-                  v-textarea(
-                    label="Descripción",
-                    prepend-icon="fas fa-pen",
-                    :rows="3",
-                    v-model="product.product_description",
-                    v-validate="'max:128'",
-                    :counter="128",
-                    :error-messages="errors.collect('descripción')",
-                    data-vv-name="descripción",
-                    required
-                  )
-                v-flex(xs12)
-                  v-text-field(
-                    label="Precio *",
-                    prepend-icon="fas fa-dollar-sign",
-                    type="number",
-                    v-model.number="product.prices[0].product_price_amount",
-                    v-validate="'required'",
-                    :error-messages="errors.collect('precio')",
-                    data-vv-name="precio",
-                    required
-                  )
-                v-flex(xs12)
-                  v-text-field(
-                    label="Imagen",
-                    prepend-icon="fas fa-image",
-                    v-model="product.product_image",
-                    persistent-hint,
-                    hint="Archivos .jpeg, .jpg o .png",
-                    :error-messages="errors.collect('imagen')",
-                    @click="onPickFile"
-                  )
-                  input(
-                    type="file",
-                    accept="image/*",
-                    :multiple="false",
-                    style="display: none",
-                    ref="productImage",
-                    v-validate="'image|ext:jpeg,jpg,png|max_dimensions:1280,960|size:1000'",
-                    data-vv-name="imagen",
-                    @change="onFileChange"
-                  )
-          v-divider
-          v-card-actions
-            v-spacer
-            v-btn(flat, color="grey", @click="onClose") Cerrar
-            v-btn(flat, color="success", type="submit" :loading="loading") Guardar
+              v-flex(xs12)
+                v-select(
+                  label="Categoría *",
+                  prepend-icon="fas fa-stream",
+                  menu-props="offsetY",
+                  :items="categoryList",
+                  item-text="category_name",
+                  item-value="category_id",
+                  v-model="product.category.category_id",
+                  v-validate="'required'",
+                  :error-messages="errors.collect('categoría')",
+                  data-vv-name="categoría",
+                  required
+                )
+              v-flex(xs12)
+                v-text-field(
+                  label="Nombre *",
+                  prepend-icon="fas fa-pen",
+                  v-model="product.product_name",
+                  v-validate="'required|max:64'",
+                  :counter="64",
+                  :error-messages="errors.collect('nombre')",
+                  data-vv-name="nombre",
+                  required
+                )
+              v-flex(xs12)
+                v-textarea(
+                  label="Descripción",
+                  prepend-icon="fas fa-pen",
+                  :rows="3",
+                  v-model="product.product_description",
+                  v-validate="'max:128'",
+                  :counter="128",
+                  :error-messages="errors.collect('descripción')",
+                  data-vv-name="descripción",
+                  required
+                )
+              v-flex(xs12)
+                v-text-field(
+                  label="Precio *",
+                  prepend-icon="fas fa-dollar-sign",
+                  type="number",
+                  :readonly="readonly",
+                  v-model.number="product.prices[0].product_price_amount",
+                  v-validate="'required'",
+                  :error-messages="errors.collect('precio')",
+                  data-vv-name="precio",
+                  required
+                )
+              v-flex(xs12)
+                v-text-field(
+                  label="Imagen",
+                  prepend-icon="fas fa-image",
+                  v-model="product.product_image",
+                  persistent-hint,
+                  hint="Archivos .jpeg, .jpg o .png",
+                  :error-messages="errors.collect('imagen')",
+                  @click="onPickFile"
+                )
+                input(
+                  type="file",
+                  accept="image/*",
+                  :multiple="false",
+                  style="display: none",
+                  ref="productImage",
+                  v-validate="'image|ext:jpeg,jpg,png|max_dimensions:1280,960|size:1000'",
+                  data-vv-name="imagen",
+                  @change="onFileChange"
+                )
+        v-divider
+        v-card-actions
+          v-spacer
+          v-btn(flat, color="grey", @click="onClose") Cerrar
+          v-btn(flat, color="success", type="submit" :loading="loading") Guardar
 </template>
 
 <script>
@@ -121,7 +124,7 @@ export default {
         buttonIcon: 'fas fa-plus-circle',
         buttonIconClass: 'v-icon--left',
         buttonText: 'Crear',
-        buttonClass: 'primary ml-0 mb-0',
+        buttonClass: 'primary ml-1 mb-0',
         title: 'Crear producto'
       },
       product: {
@@ -137,6 +140,12 @@ export default {
     }
   },
   computed: {
+    readonly() {
+      if (this.product.product_id) {
+        return true
+      }
+      return false
+    },
     ...mapGetters({
       categoryList: 'category/getCategoryList'
     })
@@ -144,8 +153,8 @@ export default {
   created() {
     if (this.selectedProduct.product_id) {
       this.dialogSettings.buttonIcon = 'fas fa-pen'
-      this.dialogSettings.buttonText = ''
       this.dialogSettings.buttonIconClass = ''
+      this.dialogSettings.buttonText = ''
       this.dialogSettings.buttonClass = 'info v-btn--floating v-btn--small'
       this.dialogSettings.title = 'Editar producto'
     }

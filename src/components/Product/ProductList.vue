@@ -1,13 +1,13 @@
 <template lang="pug">
   v-flex(xs12)
     v-data-table(
-      :headers="headers"
-      :items="paginatedProducts"
-      :pagination.sync="pagination"
-      :total-items="paginationInfo.totalItems"
-      :rows-per-page-items="paginationInfo.rowsPerPageItems"
-      :loading="pending"
-      no-data="No hay productos disponibles"
+      :headers="headers",
+      :items="paginatedProducts",
+      :pagination.sync="pagination",
+      :total-items="paginationInfo.totalItems",
+      :rows-per-page-items="paginationInfo.rowsPerPageItems",
+      :loading="pending",
+      no-data="No hay productos disponibles",
       class="elevation-1"
     )
       template(slot="items", slot-scope="props")
@@ -20,7 +20,7 @@
             v-img(
               height="auto",
               width="100%",
-              max-height="36px"
+              max-height="36px",
               :src="props.item.product_image_mini",
               lazy-src="https://via.placeholder.com/30x30.png?text=P",
               aspect-ratio="1",
@@ -30,8 +30,8 @@
         td {{ props.item.prices[0].product_price_amount }}
         td
           product-form(
-            :loading="loading"
-            :selectedProduct="props.item"
+            :loading="loading",
+            :selectedProduct="props.item",
             @onSubmit="handleSubmit"
           )
 </template>
