@@ -4,6 +4,7 @@ import '@/plugins/vuetify-algolia-places'
 import '@/plugins/vee-validate'
 import { apolloClient } from '@/plugins/vue-apollo'
 import i18n from '@/plugins/vue-i18n'
+import '@/plugins/vue-lodash'
 
 import App from '@/App'
 import router from '@/router'
