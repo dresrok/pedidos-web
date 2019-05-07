@@ -1,5 +1,6 @@
 <template lang="pug">
   v-app
+    base-snackbar
     the-navbar
     v-content.mx-4.mb-4
       transition(name="fade")
