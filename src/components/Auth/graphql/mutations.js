@@ -53,7 +53,9 @@ export const LOGIN = gql`
         company_commercial_name
         company_identification
         company_slug
-        company_image
+        company_image_name
+        company_image_mini
+        company_image_medium
         city
         company_is_certified
         offices {
@@ -70,6 +72,23 @@ export const LOGIN = gql`
             business_type_machine_name
             business_type_normalized_name
             business_type_name
+          }
+          users {
+            user_id
+            email
+            person {
+              person_first_name
+              person_last_name
+              person_legal_name
+              person_full_name
+              person_identification
+              person_description
+            }
+            profile {
+              profile_id
+              profile_machine_name
+              profile_name
+            }
           }
         }
       }

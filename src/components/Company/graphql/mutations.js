@@ -1,9 +1,39 @@
 import gql from 'graphql-tag'
 
-/* CompanyByUserId Query */
-export const COMPANY_BY_USER_ID = gql`
-  query($userId: ID!) {
-    company: companyByUserId(user_id: $userId) {
+/* updateCompany Mutation */
+export const UPDATE_COMPANY = gql`
+  mutation(
+    $companyId: ID!
+    $companyLegalName: String!
+    $companyCommercialName: String
+    $companyIdentification: String
+    $companyImage: Upload
+    $city: String!
+    $officeId: ID!
+    $officeEmail: String
+    $officeOpenFrom: String
+    $officeOpenTo: String
+    $officeDeliveryTime: String
+    $officeMinimumOrderPrice: Float
+    $businessTypes: [Int!]!
+  ) {
+    company: updateCompany(
+      input: {
+        id: $companyId
+        company_legal_name: $companyLegalName
+        company_commercial_name: $companyCommercialName
+        company_identification: $companyIdentification
+        company_image: $companyImage
+        city: $city
+        office_id: $officeId
+        office_email: $officeEmail
+        office_open_from: $officeOpenFrom
+        office_open_to: $officeOpenTo
+        office_delivery_time: $officeDeliveryTime
+        office_minimum_order_price: $officeMinimumOrderPrice
+        business_types: $businessTypes
+      }
+    ) {
       company_id
       company_legal_name
       company_commercial_name

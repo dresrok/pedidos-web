@@ -6,6 +6,9 @@ const company = {
     company: null
   },
   getters: {
+    getCompany(state) {
+      return state.company ? state.company : {}
+    },
     getCompanyName(state) {
       return state.company ? state.company.company_legal_name : ''
     },
@@ -27,6 +30,12 @@ const company = {
   actions: {
     retrieveData(context, payload) {
       return companyService.retrieveData(context, payload)
+    },
+    // createCompany(context, payload) {
+    //   return companyService.createCompany(context, payload)
+    // },
+    updateCompany(context, payload) {
+      return companyService.updateCompany(context, payload)
     }
   }
 }

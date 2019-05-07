@@ -57,6 +57,16 @@ const router = new Router({
         requiresAuth: true
       },
       beforeEnter: routeGuard.beforeEnter
+    },
+    {
+      path: '/mi-restaurante',
+      name: 'mi-restaurante',
+      component: () =>
+        import(/* webpackChunkName: "mi-restaurante" */ '@/views/Company.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      beforeEnter: routeGuard.beforeEnter
     }
   ]
 })
