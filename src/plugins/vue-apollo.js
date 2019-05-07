@@ -8,6 +8,9 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
 import { createUploadLink } from 'apollo-upload-client'
 
+import store from '@/store'
+import i18n from '@/plugins/vue-i18n'
+
 // Install the vue plugin
 Vue.use(VueApollo)
 
@@ -38,9 +41,13 @@ const defaultOptions = {
   // Override default apollo link
   // note: don't override httpLink here, specify httpLink options in the
   // httpLinkOptions property of defaultOptions.
-  // link: onError(({ graphQLErrors, networkError, operation, forward }) => {}),
+  link: onError(({ graphQLErrors, networkError, operation, forward }) => {
+    if (graphQLErrors) _handleGraphQLErrors(graphQLErrors)
+
+    if (networkError) _handleNetworkError(networkError)
+  }),
   // Research more about it and define a new structure
-  defaultHttpLink: false,
+  // defaultHttpLink: false,
   httpLinkOptions: {
     httpLink: createUploadLink({
       uri: httpEndpoint
@@ -117,4 +124,35 @@ export async function onLogout(apolloClient) {
     // eslint-disable-next-line no-console
     console.log('%cError on cache reset (logout)', 'color: orange;', e.message)
   }
+}
+
+function _handleGraphQLErrors(graphQLErrors) {
+  graphQLErrors.map(({ message, extensions, locations, path }) =>
+    _processGraphQLErrors(message)
+  )
+}
+
+function _processGraphQLErrors(message) {
+  if (message === 'The user credentials were incorrect.') {
+    _showError(i18n.t('errors.graph.invalid_credentials'))
+  }
+}
+
+function _handleNetworkError(networkError) {
+  switch (networkError.message) {
+    case 'Failed to fetch':
+      _showError(i18n.t('errors.network.failed_to_fetch'))
+      break
+  }
+}
+
+function _showError(text) {
+  store.dispatch('layout/setSnackbar', {
+    show: true,
+    y: 'bottom',
+    x: 'right',
+    timeout: 5000,
+    color: 'error',
+    text: text
+  })
 }
