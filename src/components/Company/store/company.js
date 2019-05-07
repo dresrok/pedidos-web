@@ -25,6 +25,9 @@ const company = {
     },
     DESTROY_COMPANY(state) {
       state.company = null
+    },
+    SET_PERSON(state, payload) {
+      state.company.offices[0].users[0].person = payload
     }
   },
   actions: {

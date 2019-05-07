@@ -6,6 +6,9 @@ const user = {
     user: null
   },
   getters: {
+    getUser(state) {
+      return state.user ? state.user : ''
+    },
     getUserId(state) {
       return state.user ? state.user.user_id : ''
     },
@@ -25,11 +28,20 @@ const user = {
     },
     DESTROY_USER(state) {
       state.user = null
+    },
+    SET_PERSON(state, payload) {
+      state.user.person = payload
     }
   },
   actions: {
     retrieveData(context) {
       return userService.retrieveData(context)
+    },
+    updatePerson(context, payload) {
+      return userService.updatePerson(context, payload)
+    },
+    changePassword(context, payload) {
+      return userService.changePassword(context, payload)
     }
   }
 }

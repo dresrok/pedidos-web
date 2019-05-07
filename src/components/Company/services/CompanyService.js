@@ -61,7 +61,7 @@ companyService.updateCompany = (context, { payload }) => {
           x: 'right',
           timeout: 5000,
           color: 'info',
-          text: 'Se ha actualizado con éxito la información del restaurante!'
+          text: 'Se ha actualizado con éxito el restaurante!'
         },
         { root: true }
       )

@@ -1,5 +1,6 @@
 import { apolloClient } from '@/plugins/vue-apollo'
 
+import { UPDATE_PERSON } from '@/components/User/graphql/mutations'
 import { ME } from '@/components/User/graphql/queries'
 
 const userService = {}
@@ -19,6 +20,40 @@ userService.retrieveData = context => {
         return error
       })
   }
+}
+
+userService.updatePerson = (context, { payload }) => {
+  return apolloClient
+    .mutate({
+      mutation: UPDATE_PERSON,
+      variables: {
+        personId: payload.person_id,
+        personFirstName: payload.person_first_name,
+        personLastName: payload.person_last_name,
+        personIdentification: payload.person_identification
+      }
+    })
+    .then(({ data: { person } }) => {
+      context.commit('SET_PERSON', person)
+      context.commit('company/SET_PERSON', person, { root: true })
+      context.dispatch(
+        'layout/setSnackbar',
+        {
+          show: true,
+          y: 'bottom',
+          x: 'right',
+          timeout: 5000,
+          color: 'info',
+          text: 'Se ha actualizado con éxito el usuario!'
+        },
+        { root: true }
+      )
+      return person
+    })
+    .catch(error => {
+      console.error(error)
+      return error
+    })
 }
 
 export default userService

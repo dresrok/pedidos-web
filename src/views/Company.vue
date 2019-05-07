@@ -4,20 +4,24 @@
     v-container(grid-list-md)
       v-layout.mb-3(row, wrap, justify-start)
         company-card(:company="company")
+        user-card(:user="user")
 </template>
 
 <script>
 import CompanyCard from '@/components/Company/CompanyCard'
+import UserCard from '@/components/User/UserCard'
 
 import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    CompanyCard
+    CompanyCard,
+    UserCard
   },
   computed: {
     ...mapGetters({
-      company: 'company/getCompany'
+      company: 'company/getCompany',
+      user: 'user/getUser'
     })
   }
 }

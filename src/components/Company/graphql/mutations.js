@@ -63,6 +63,7 @@ export const UPDATE_COMPANY = gql`
           user_id
           email
           person {
+            person_id
             person_first_name
             person_last_name
             person_legal_name

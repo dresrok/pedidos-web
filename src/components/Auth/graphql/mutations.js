@@ -20,6 +20,7 @@ export const LOGIN = gql`
         user_id
         email
         person {
+          person_id
           person_first_name
           person_last_name
           person_legal_name
@@ -77,6 +78,7 @@ export const LOGIN = gql`
             user_id
             email
             person {
+              person_id
               person_first_name
               person_last_name
               person_legal_name

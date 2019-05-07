@@ -225,7 +225,6 @@ export default {
       this.dialog = true
       if (this.selectedCompany.company_id) {
         this.company = JSON.parse(JSON.stringify(this.selectedCompany))
-        //this.place = this.company.city
       }
     },
     onPickFile() {
