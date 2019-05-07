@@ -50,6 +50,18 @@ productService.createProduct = (context, { payload }) => {
     })
     .then(({ data: { product } }) => {
       context.commit('CREATE_PRODUCT', product)
+      context.dispatch(
+        'layout/setSnackbar',
+        {
+          show: true,
+          y: 'bottom',
+          x: 'right',
+          timeout: 5000,
+          color: 'info',
+          text: 'Se ha creado con éxito el producto!'
+        },
+        { root: true }
+      )
       return product
     })
     .catch(error => {
@@ -79,6 +91,18 @@ productService.updateProduct = (context, { payload }) => {
     })
     .then(({ data: { product } }) => {
       context.commit('UPDATE_PRODUCT', product)
+      context.dispatch(
+        'layout/setSnackbar',
+        {
+          show: true,
+          y: 'bottom',
+          x: 'right',
+          timeout: 5000,
+          color: 'info',
+          text: 'Se ha actualizado con éxito el producto!'
+        },
+        { root: true }
+      )
       return product
     })
     .catch(error => {

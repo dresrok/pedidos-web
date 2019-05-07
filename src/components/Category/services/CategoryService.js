@@ -50,6 +50,18 @@ categoryService.createCategory = (context, { payload }) => {
     .then(({ data: { category } }) => {
       context.commit('CREATE_CATEGORY', category)
       context.commit('APPEND_TO_CATEGORY_LIST', category)
+      context.dispatch(
+        'layout/setSnackbar',
+        {
+          show: true,
+          y: 'bottom',
+          x: 'right',
+          timeout: 5000,
+          color: 'info',
+          text: 'Se ha creado con éxito la categoría!'
+        },
+        { root: true }
+      )
       return category
     })
     .catch(error => {
@@ -75,6 +87,18 @@ categoryService.updateCategory = (context, { payload }) => {
     .then(({ data: { category } }) => {
       context.commit('UPDATE_CATEGORY', category)
       context.commit('REFRESH_IN_CATEGORY_LIST', category)
+      context.dispatch(
+        'layout/setSnackbar',
+        {
+          show: true,
+          y: 'bottom',
+          x: 'right',
+          timeout: 5000,
+          color: 'info',
+          text: 'Se ha actualizado con éxito la categoría!'
+        },
+        { root: true }
+      )
       return category
     })
     .catch(error => {

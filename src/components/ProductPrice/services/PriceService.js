@@ -21,6 +21,18 @@ priceService.createPrice = (context, { payload }) => {
     .then(({ data: { price } }) => {
       context.commit('product/CREATE_PRICE', price, { root: true })
       context.dispatch('deletePrice', { payload })
+      context.dispatch(
+        'layout/setSnackbar',
+        {
+          show: true,
+          y: 'bottom',
+          x: 'right',
+          timeout: 5000,
+          color: 'info',
+          text: 'Se ha creado con éxito el nuevo precio!'
+        },
+        { root: true }
+      )
       return price
     })
     .catch(error => {
@@ -44,6 +56,18 @@ priceService.updatePrice = (context, { payload }) => {
     })
     .then(({ data: { price } }) => {
       context.commit('product/UPDATE_PRICE', price, { root: true })
+      context.dispatch(
+        'layout/setSnackbar',
+        {
+          show: true,
+          y: 'bottom',
+          x: 'right',
+          timeout: 5000,
+          color: 'info',
+          text: 'Se ha actualizado con éxito el precio!'
+        },
+        { root: true }
+      )
       return price
     })
     .catch(error => {

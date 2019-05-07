@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-dialog(max-width="600px", v-model="dialog", persistent)
+  v-dialog(max-width="600px", v-model="dialog", scrollable, persistent)
     v-tooltip(top, slot="activator")
       v-btn(
         depressed,
