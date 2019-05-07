@@ -11,7 +11,7 @@
         | {{ dialogSettings.buttonText }}
       span {{ dialogSettings.title }}
     v-card
-      v-card-title.headline.grey.lighten-2 {{ dialogSettings.title }}
+      v-card-title.title.deep-purple.lighten-1.font-weight-regular.white--text {{ dialogSettings.title }}
       v-card-text
         product-price-form(
           :dialog="dialog"

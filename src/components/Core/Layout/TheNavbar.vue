@@ -8,10 +8,9 @@
       @onToggleDrawer="handleToggleDrawer"
     )
     the-navigation-drawer(
-      v-show="isAuthenticated",
+      v-if="isAuthenticated",
       :drawer="drawer",
-      :companyName="companyName",
-      :companyIdentification="companyIdentification",
+      :company="company",
       :menus="menus",
       @onToggleDrawer="handleToggleDrawer"
     )
@@ -34,8 +33,7 @@ export default {
       drawer: 'layout/getDrawer',
       userFullName: 'user/getUserFullName',
       userProfileName: 'user/getUserProfileName',
-      companyName: 'company/getCompanyName',
-      companyIdentification: 'company/getCompanyIdentification',
+      company: 'company/getCompany',
       menus: 'user/getMenus'
     })
   },

@@ -4,7 +4,7 @@
       v-flex(xs12, sm6, md6)
         v-form(ref="form", @submit.prevent="onSubmit")
           v-card
-            v-card-title.title.grey.lighten-3 Iniciar sesión
+            v-card-title.title.deep-purple.lighten-1.font-weight-regular.white--text Iniciar sesión
             v-card-text
                 v-text-field(
                   label="Email",
@@ -28,7 +28,7 @@
             v-divider
             v-card-actions
               v-spacer
-              v-btn(flat, color="primary", type="submit", :loading="loading") Acceder
+              v-btn(flat, color="info", type="submit", :loading="loading") Acceder
 </template>
 
 <script>

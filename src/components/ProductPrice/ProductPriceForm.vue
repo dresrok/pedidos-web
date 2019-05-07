@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-form(v-show="toggleForm", ref="productPriceForm", @submit.prevent="onSubmit")
+  v-form.mb-2(v-show="toggleForm", ref="productPriceForm", @submit.prevent="onSubmit")
     v-card
       v-card-text
         v-layout(row, wrap)
@@ -27,7 +27,7 @@
             )
           v-flex(xs12)
             v-btn(flat, color="grey", @click.stop="onCancel") Cancelar
-            v-btn(flat, color="success", type="submit" :loading="loading") Guardar
+            v-btn(flat, color="info", type="submit" :loading="loading") Guardar
 </template>
 
 <script>

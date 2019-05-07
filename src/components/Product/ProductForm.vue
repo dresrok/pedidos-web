@@ -4,6 +4,7 @@
       v-btn(
         depressed,
         slot="activator",
+        color="info",
         :class="dialogSettings.buttonClass",
         @click.stop="onShowDialog"
       ) 
@@ -12,7 +13,7 @@
       span {{ dialogSettings.title }}
     v-form(ref="productForm", @submit.prevent="onSubmit", enctype="multipart/form-data")
       v-card
-        v-card-title.headline.grey.lighten-2 {{ dialogSettings.title }}
+        v-card-title.title.deep-purple.lighten-1.font-weight-regular.white--text {{ dialogSettings.title }}
         v-card-text
           v-container(grid-list-md)
             v-layout(row, wrap)
@@ -99,7 +100,7 @@
         v-card-actions
           v-spacer
           v-btn(flat, color="grey", @click="onClose") Cerrar
-          v-btn(flat, color="success", type="submit" :loading="loading") Guardar
+          v-btn(flat, color="info", type="submit" :loading="loading") Guardar
 </template>
 
 <script>
@@ -124,7 +125,7 @@ export default {
         buttonIcon: 'fas fa-plus-circle',
         buttonIconClass: 'v-icon--left',
         buttonText: 'Crear',
-        buttonClass: 'primary ml-1 mb-0',
+        buttonClass: 'ml-1 mb-0',
         title: 'Crear producto'
       },
       product: {
@@ -155,7 +156,7 @@ export default {
       this.dialogSettings.buttonIcon = 'fas fa-pen'
       this.dialogSettings.buttonIconClass = ''
       this.dialogSettings.buttonText = ''
-      this.dialogSettings.buttonClass = 'info v-btn--floating v-btn--small'
+      this.dialogSettings.buttonClass = 'v-btn--floating v-btn--small'
       this.dialogSettings.title = 'Editar producto'
     }
   },

@@ -1,11 +1,19 @@
 <template lang="pug">
-  v-navigation-drawer.yellow.darken-3(app, :value="drawer", @input="onToggleDrawer")
+  v-navigation-drawer.deep-purple.lighten-1(app, :value="drawer", @input="onToggleDrawer")
     v-layout.white--text(column, align-center)
       v-flex.mt-4.text-lg-center
-        //- v-avatar(size="64")
-        //-   img(src="/avatar-1.png")
-        .subheading.mt-1 {{ companyName }}
-        .caption.mt-1 {{ companyIdentification }}
+        v-avatar(size="64")
+          v-img(
+            height="auto",
+            width="100%",
+            max-height="64px",
+            :src="company.company_image_mini",
+            lazy-src="https://via.placeholder.com/64x64.png?text=R",
+            aspect-ratio="1",
+            contain
+          )
+        .subheading.mt-1 {{ company.company_legal_name }}
+        .caption.mt-1 {{ company.company_identification }}
     v-list(dark)
       v-list-tile(
         v-for="menu in menus",
@@ -52,12 +60,8 @@ export default {
       type: Boolean,
       required: true
     },
-    companyName: {
-      type: String,
-      required: true
-    },
-    companyIdentification: {
-      type: String,
+    company: {
+      type: Object,
       required: true
     },
     menus: {
