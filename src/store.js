@@ -8,6 +8,7 @@ import company from '@/components/Company/store/company.js'
 import category from '@/components/Category/store/category.js'
 import product from '@/components/Product/store/product.js'
 import price from '@/components/ProductPrice/store/price.js'
+import businessType from '@/components/BusinessType/store/businessType.js'
 
 Vue.use(Vuex)
 
@@ -23,7 +24,8 @@ const initialState = {
   product: {
     ...parseAndStringifyState(product.state),
     price: parseAndStringifyState(price.state)
-  }
+  },
+  businessType: parseAndStringifyState(businessType.state)
 }
 
 export default new Vuex.Store({
@@ -33,7 +35,8 @@ export default new Vuex.Store({
     user,
     company,
     category,
-    product
+    product,
+    businessType
   },
   mutations: {
     RESET_STATE(state) {
