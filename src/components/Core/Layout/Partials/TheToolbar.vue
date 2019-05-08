@@ -4,8 +4,8 @@
       v-icon fas fa-bars
     v-toolbar-title.grey--text
       router-link(to="/", tag="span", style="cursor: pointer")
-        span.font-weight-light Pedidos
-        span Web
+        span Catu
+        span.font-weight-light rra
     v-spacer
     v-toolbar-items
     v-menu(v-if="isAuthenticated", offset-y, :nudge-width="200")
