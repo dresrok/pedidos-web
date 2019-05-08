@@ -4,8 +4,8 @@
 
 <script>
 export default {
-  created() {
-    this.$store.dispatch('auth/signOut').then(response => {
+  async created() {
+    await this.$store.dispatch('auth/signOut').then(response => {
       this.$router.push({ name: 'home' })
     })
   }

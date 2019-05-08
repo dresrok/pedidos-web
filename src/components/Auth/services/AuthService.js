@@ -48,6 +48,7 @@ authService.destroyToken = async context => {
     .then(data => {
       localStorage.removeItem('auth-payload')
       onLogout(apolloClient)
+      context.commit('DESTROY_TOKEN')
       context.commit('RESET_STATE', null, {
         root: true
       })
