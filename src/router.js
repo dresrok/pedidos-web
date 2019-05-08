@@ -29,16 +29,6 @@ const router = new Router({
         )
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () =>
-        import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue'),
-      meta: {
-        requiresAuth: true
-      },
-      beforeEnter: routeGuard.beforeEnter
-    },
-    {
       path: '/categorias',
       name: 'categorias',
       component: () =>
@@ -67,6 +57,17 @@ const router = new Router({
         requiresAuth: true
       },
       beforeEnter: routeGuard.beforeEnter
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: () =>
+        import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue'),
+      beforeEnter: routeGuard.beforeEnter
+    },
+    {
+      path: '*',
+      redirect: { name: '404', params: { resource: 'página' } }
     }
   ]
 })

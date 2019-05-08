@@ -12,7 +12,7 @@ export function init(router, store) {
       store.getters['auth/getIsAuthenticated']
     ) {
       next({
-        name: 'dashboard'
+        name: 'mi-restaurante'
       })
     } else {
       next()

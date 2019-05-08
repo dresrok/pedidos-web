@@ -59,7 +59,7 @@ export default {
               client_name: this.client_name
             })
             .then(response => {
-              this.$router.push({ name: 'dashboard' })
+              this.$router.push({ name: 'mi-restaurante' })
             })
         }
       })
