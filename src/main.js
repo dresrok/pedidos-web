@@ -5,6 +5,7 @@ import '@/plugins/vee-validate/vee-validate'
 import { apolloClient } from '@/plugins/vue-apollo'
 import i18n from '@/plugins/vue-i18n'
 import '@/plugins/vue-lodash'
+import '@/plugins/vue-moment'
 
 import App from '@/App'
 import router from '@/router'

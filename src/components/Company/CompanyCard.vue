@@ -22,9 +22,9 @@
             div.mb-2 {{ company.offices[0].office_email || 'Por definir' }}
           v-flex(xs12, sm6)
             .caption.grey--text Abierto desde
-            div.mb-2 {{ company.offices[0].office_open_from || 'Por definir' }}
+            div.mb-2 {{ company.offices[0].office_open_from ? $moment(company.offices[0].office_open_from, 'HH:mm:ss').format('hh:mm a') : 'Por definir' }}
             .caption.grey--text Abierto hasta
-            div.mb-2 {{ company.offices[0].office_open_to || 'Por definir' }}
+            div.mb-2 {{ company.offices[0].office_open_to ? $moment(company.offices[0].office_open_to, 'HH:mm:ss').format('hh:mm a') : 'Por definir' }}
             .caption.grey--text Tiempo aproximado de entrega
             div.mb-2 {{ company.offices[0].office_delivery_time || 'Por definir' }}
             .caption.grey--text Precio mínimo del pedido

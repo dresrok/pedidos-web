@@ -104,31 +104,65 @@
                   data-vv-name="email",
                 )
               v-flex(xs12, sm6)
-                v-text-field(
-                  label="Abierto desde *",
-                  prepend-icon="fas fa-pen",
-                  persistent-hint,
-                  hint="Ejemplo: 8:00 am",
-                  v-model="company.offices[0].office_open_from",
-                  v-validate="'required|max:8'",
-                  :counter="8",
-                  :error-messages="errors.collect('abierto desde')",
-                  data-vv-name="abierto desde",
-                  required
+                v-dialog(
+                  ref="openFrom",
+                  v-model="openFrom",
+                  :return-value.sync="company.offices[0].office_open_from",
+                  persistent,
+                  lazy,
+                  full-width,
+                  width="290px"
                 )
+                  template(v-slot:activator="{ on }")
+                    v-text-field(
+                      label="Abierto desde *",
+                      prepend-icon="far fa-clock",
+                      readonly,
+                      v-on="on",
+                      v-model="company.offices[0].office_open_from",
+                      v-validate="'required'",
+                      :error-messages="errors.collect('abierto desde')",
+                      data-vv-name="abierto desde",
+                      required
+                    )
+                  v-time-picker(
+                    v-if="openFrom",
+                    v-model="company.offices[0].office_open_from",
+                    full-width
+                  )
+                    v-spacer
+                    v-btn(flat, color="grey", @click="openFrom = false") Cerrar
+                    v-btn(flat, color="primary", @click="$refs.openFrom.save(company.offices[0].office_open_from)") Ok
               v-flex(xs12, sm6)
-                v-text-field(
-                  label="Abierto hasta *",
-                  prepend-icon="fas fa-pen",
-                  persistent-hint,
-                  hint="Ejemplo: 6:00 pm",
-                  v-model="company.offices[0].office_open_to",
-                  v-validate="'required|max:8'",
-                  :counter="8",
-                  :error-messages="errors.collect('abierto hasta')",
-                  data-vv-name="abierto hasta",
-                  required
+                v-dialog(
+                  ref="openTo",
+                  v-model="openTo",
+                  :return-value.sync="company.offices[0].office_open_to",
+                  persistent,
+                  lazy,
+                  full-width,
+                  width="290px"
                 )
+                  template(v-slot:activator="{ on }")
+                    v-text-field(
+                      label="Abierto hasta *",
+                      prepend-icon="far fa-clock",
+                      readonly,
+                      v-on="on",
+                      v-model="company.offices[0].office_open_to",
+                      v-validate="'required'",
+                      :error-messages="errors.collect('abierto hasta')",
+                      data-vv-name="abierto hasta",
+                      required
+                    )
+                  v-time-picker(
+                    v-if="openTo",
+                    v-model="company.offices[0].office_open_to",
+                    full-width
+                  )
+                    v-spacer
+                    v-btn(flat, color="grey", @click="openTo = false") Cerrar
+                    v-btn(flat, color="primary", @click="$refs.openTo.save(company.offices[0].office_open_to)") Ok
               v-flex(xs12, sm6)
                 v-text-field(
                   label="Tiempo aproximado de entrega *",
@@ -138,8 +172,8 @@
                   v-model="company.offices[0].office_delivery_time	",
                   v-validate="'required|max:16'",
                   :counter="16",
-                  :error-messages="errors.collect('Tiempo aproximado de entrega')",
-                  data-vv-name="Tiempo aproximado de entrega",
+                  :error-messages="errors.collect('tiempo aproximado de entrega')",
+                  data-vv-name="tiempo aproximado de entrega",
                   required
                 )
               v-flex(xs12, sm6)
@@ -151,8 +185,8 @@
                   hint="Ejemplo: 3000",
                   v-model="company.offices[0].office_minimum_order_price	",
                   v-validate="'required'",
-                  :error-messages="errors.collect('Precio mínimo del pedido')",
-                  data-vv-name="Precio mínimo del pedido",
+                  :error-messages="errors.collect('precio mínimo del pedido')",
+                  data-vv-name="precio mínimo del pedido",
                   required
                 )
               v-flex(xs12)
@@ -212,7 +246,9 @@ export default {
         offices: [{}]
       },
       place: JSON.parse(JSON.stringify(this.selectedCompany.city)),
-      image: ''
+      image: '',
+      openFrom: false,
+      openTo: false
     }
   },
   computed: {
