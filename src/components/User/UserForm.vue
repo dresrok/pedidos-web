@@ -43,7 +43,7 @@
                   label="Identificación *",
                   prepend-icon="fas fa-pen",
                   v-model="person.person_identification",
-                  v-validate="'required|max:11'",
+                  v-validate="{ required: true, max: 11, unique: [person.person_id, 'validatePersonIdentification'] }",
                   :counter="11",
                   :error-messages="errors.collect('identificación')",
                   data-vv-name="identificación",
