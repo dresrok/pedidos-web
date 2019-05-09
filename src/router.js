@@ -21,6 +21,15 @@ const router = new Router({
       }
     },
     {
+      path: '/registrar-restaurante',
+      name: 'registrar-restaurante',
+      component: () =>
+        import(/* webpackChunkName: "register" */ '@/views/Register.vue'),
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
       path: '/logout',
       name: 'logout',
       component: () =>

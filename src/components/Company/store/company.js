@@ -3,7 +3,8 @@ import companyService from '@/components/Company/services/CompanyService'
 const company = {
   namespaced: true,
   state: {
-    company: null
+    company: null,
+    loading: false
   },
   getters: {
     getCompany(state) {
@@ -17,6 +18,9 @@ const company = {
     },
     getOfficeId(state) {
       return state.company ? state.company.offices[0].office_id : ''
+    },
+    getLoading(state) {
+      return state.loading
     }
   },
   mutations: {
@@ -28,15 +32,18 @@ const company = {
     },
     SET_PERSON(state, payload) {
       state.company.offices[0].users[0].person = payload
+    },
+    TOGGLE_LOADING(state, payload) {
+      state.loading = payload
     }
   },
   actions: {
     retrieveData(context, payload) {
       return companyService.retrieveData(context, payload)
     },
-    // createCompany(context, payload) {
-    //   return companyService.createCompany(context, payload)
-    // },
+    registerCompany(context, payload) {
+      return companyService.registerCompany(context, payload)
+    },
     updateCompany(context, payload) {
       return companyService.updateCompany(context, payload)
     }

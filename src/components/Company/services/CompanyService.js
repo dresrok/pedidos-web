@@ -1,6 +1,9 @@
-import { apolloClient } from '@/plugins/vue-apollo'
+import { apolloClient, onLogin } from '@/plugins/vue-apollo'
 
-import { UPDATE_COMPANY } from '@/components/Company/graphql/mutations'
+import {
+  REGISTER_COMPANY,
+  UPDATE_COMPANY
+} from '@/components/Company/graphql/mutations'
 import { COMPANY_BY_USER_ID } from '@/components/Company/graphql/queries'
 
 const companyService = {}
@@ -23,6 +26,52 @@ companyService.retrieveData = (context, payload) => {
         return error
       })
   }
+}
+
+companyService.registerCompany = (context, { payload }) => {
+  context.commit('TOGGLE_LOADING', true)
+  return apolloClient
+    .mutate({
+      mutation: REGISTER_COMPANY,
+      variables: {
+        companyLegalName: payload.company_legal_name,
+        companyIdentification: payload.company_identification,
+        city: payload.city,
+        businessTypes: payload.business_types,
+        personFirstName: payload.person_first_name,
+        personLastName: payload.person_last_name,
+        personIdentification: payload.person_identification,
+        userEmail: payload.email,
+        userPassword: payload.password
+      }
+    })
+    .then(({ data: { register: { token, me, company } } }) => {
+      localStorage.setItem('auth-payload', JSON.stringify(token))
+      onLogin(apolloClient, token.access_token)
+      context.commit('auth/SET_TOKEN', token.access_token, { root: true })
+      context.commit('user/SET_USER', me, { root: true })
+      context.commit('SET_COMPANY', company)
+      context.dispatch(
+        'layout/setSnackbar',
+        {
+          show: true,
+          y: 'bottom',
+          x: 'right',
+          timeout: 5000,
+          color: 'info',
+          text: 'Se ha registrado con éxito el restaurante!'
+        },
+        { root: true }
+      )
+      return company
+    })
+    .catch(error => {
+      console.error(error)
+      return error
+    })
+    .finally(() => {
+      context.commit('TOGGLE_LOADING', false)
+    })
 }
 
 companyService.updateCompany = (context, { payload }) => {
