@@ -11,23 +11,24 @@
                   prepend-icon="fas fa-envelope",
                   v-model="email",
                   v-validate="'required|email'",
-                  :error-messages="errors.collect('email')"
+                  :error-messages="errors.collect('email')",
                   data-vv-name="email",
                   required
                 )
                 v-text-field(
                   label="Contraseña",
-                  prepend-icon="fas fa-lock"
+                  prepend-icon="fas fa-lock",
                   type="password",
                   v-model="password",
                   v-validate="'required'",
-                  :error-messages="errors.collect('contraseña')"
+                  :error-messages="errors.collect('contraseña')",
                   data-vv-name="contraseña",
                   required
                 )
             v-divider
             v-card-actions
               v-spacer
+              v-btn(flat, color="grey", router, :to="{ name: 'registrar-restaurante' }") Registrarse
               v-btn(flat, color="info", type="submit", :loading="loading") Acceder
 </template>
 

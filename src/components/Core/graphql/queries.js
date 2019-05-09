@@ -42,7 +42,7 @@ const VALIDATE_PERSON_IDENTIFICATION = gql`
 /* validateUserEmail Query */
 const VALIDATE_USER_EMAIL = gql`
   query($userId: ID, $userEmail: String!) {
-    validation: validateUserEmail(user_id: $userId, user_email: $userEmail) {
+    validation: validateUserEmail(user_id: $userId, email: $userEmail) {
       valid
       message
     }
