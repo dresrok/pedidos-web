@@ -1,26 +1,86 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Home from "./views/Home.vue";
+import Vue from 'vue'
+import Router from 'vue-router'
+import SignIn from '@/components/Auth/SignIn.vue'
 
-Vue.use(Router);
+import store from '@/store'
+import { init } from '@/components/Auth/guards/AuthGuard'
+import routeGuard from '@/components/Core/guards/RouteGuard'
 
-export default new Router({
-  mode: "history",
+Vue.use(Router)
+
+const router = new Router({
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: Home
+      path: '/',
+      name: 'home',
+      component: SignIn,
+      meta: {
+        requiresVisitor: true
+      }
     },
     {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      path: '/registrar-restaurante',
+      name: 'registrar-restaurante',
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+        import(/* webpackChunkName: "register" */ '@/views/Register.vue'),
+      meta: {
+        requiresVisitor: true
+      }
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () =>
+        import(
+          /* webpackChunkName: "signOut" */ '@/components/Auth/SignOut.vue'
+        )
+    },
+    {
+      path: '/categorias',
+      name: 'categorias',
+      component: () =>
+        import(/* webpackChunkName: "categories" */ '@/views/Categories.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      beforeEnter: routeGuard.beforeEnter
+    },
+    {
+      path: '/productos',
+      name: 'productos',
+      component: () =>
+        import(/* webpackChunkName: "products" */ '@/views/Products.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      beforeEnter: routeGuard.beforeEnter
+    },
+    {
+      path: '/mi-restaurante',
+      name: 'mi-restaurante',
+      component: () =>
+        import(/* webpackChunkName: "mi-restaurante" */ '@/views/Company.vue'),
+      meta: {
+        requiresAuth: true
+      },
+      beforeEnter: routeGuard.beforeEnter
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: () =>
+        import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue'),
+      beforeEnter: routeGuard.beforeEnter
+    },
+    {
+      path: '*',
+      redirect: { name: '404', params: { resource: 'página' } }
     }
   ]
-});
+})
+
+init(router, store)
+
+export default router

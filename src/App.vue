@@ -1,25 +1,43 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+<template lang="pug">
+  v-app
+    base-snackbar
+    the-navbar
+    v-content.mx-4.mb-4
+      transition(name="fade")
+        router-view
+    the-footer
 </template>
-<style lang="stylus">
-#app
-  font-family 'Avenir', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
 
-#nav
-  padding 30px
-  a
-    font-weight bold
-    color #2c3e50
-    &.router-link-exact-active
-      color #42b983
+<script>
+import TheNavbar from '@/components/Core/Layout/TheNavbar'
+import TheFooter from '@/components/Core/Layout/TheFooter'
+
+export default {
+  name: 'App',
+  components: {
+    TheNavbar,
+    TheFooter
+  }
+}
+</script>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: all;
+  transition-duration: 0.25;
+}
+.fade-enter-active {
+  transition-delay: 0.25s;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+  transform: translateX(-25px);
+}
+.v-icon {
+  font-size: 20px;
+}
+.v-list--dense .v-list__tile .v-icon {
+  font-size: 20px;
+}
 </style>
