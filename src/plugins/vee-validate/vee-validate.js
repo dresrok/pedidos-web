@@ -6,6 +6,8 @@ import uniqueRule from '@/plugins/vee-validate/rules/uniqueRule'
 
 Vue.use(VeeValidate)
 
+es.messages.is_not = () => `La nueva contraseña no puede ser igual`
+
 Validator.localize('es', es)
 
 Validator.extend('max_dimensions', maxDimensionsRule)
