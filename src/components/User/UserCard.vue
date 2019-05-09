@@ -7,6 +7,9 @@
           :selectedPerson="user.person"
           @onSubmit="handleSubmit"
         )
+        user-form-change-password(
+          @onChangePassword="handleChangePassword"
+        )
       v-card-text
         v-layout(row, wrap)
           v-flex(xs12, sm6)
@@ -24,10 +27,12 @@
 
 <script>
 import UserForm from '@/components/User/UserForm'
+import UserFormChangePassword from '@/components/User/UserFormChangePassword'
 
 export default {
   components: {
-    UserForm
+    UserForm,
+    UserFormChangePassword
   },
   props: {
     user: {
@@ -38,6 +43,11 @@ export default {
   methods: {
     async handleSubmit(payload) {
       await this.$store.dispatch('user/updatePerson', {
+        payload
+      })
+    },
+    async handleChangePassword(payload) {
+      await this.$store.dispatch('user/changePassword', {
         payload
       })
     }

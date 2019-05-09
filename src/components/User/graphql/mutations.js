@@ -24,3 +24,16 @@ export const UPDATE_PERSON = gql`
     }
   }
 `
+
+/* changePassword Mutation */
+export const CHANGE_PASSWORD = gql`
+  mutation($currentPassword: String!, $newPassword: String!) {
+    user: changePassword(
+      current_password: $currentPassword
+      new_password: $newPassword
+    ) {
+      user_id
+      email
+    }
+  }
+`
