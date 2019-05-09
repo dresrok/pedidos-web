@@ -1,11 +1,13 @@
 <template lang="pug">
   v-snackbar(
     v-model="snackbar.show",
-    :bottom="snackbar.y === 'bottom'"
-    :left="snackbar.x === 'left'"
-    :right="snackbar.x === 'right'"
-    :timeout="snackbar.timeout"
-    :top="snackbar.y === 'top'"
+    :bottom="snackbar.y === 'bottom'",
+    :left="snackbar.x === 'left'",
+    :multi-line="snackbar.mode === 'multi-line'",
+    :right="snackbar.x === 'right'",
+    :timeout="snackbar.timeout",
+    :top="snackbar.y === 'top'",
+    :vertical="snackbar.mode === 'vertical'",
     :color="snackbar.color"
   )
     span {{ snackbar.text }}
