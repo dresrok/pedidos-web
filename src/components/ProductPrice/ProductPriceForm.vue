@@ -18,9 +18,8 @@
             v-text-field(
               label="Precio *",
               prepend-icon="fas fa-dollar-sign",
-              type="number",
               v-model.number="price.product_price_amount",
-              v-validate="'required'",
+              v-validate="'required|decimal'",
               :error-messages="errors.collect('precio')",
               data-vv-name="precio",
               required

@@ -83,6 +83,7 @@
                   item-text="business_type_name",
                   item-value="business_type_id",
                   prepend-icon="fas fa-list-ul",
+                  deletable-chips,
                   chips,
                   multiple,
                   return-object,
@@ -180,11 +181,10 @@
                 v-text-field(
                   label="Precio mínimo del pedido *",
                   prepend-icon="fas fa-pen",
-                  type="number",
                   persistent-hint,
                   hint="Ejemplo: 3000",
                   v-model="company.offices[0].office_minimum_order_price	",
-                  v-validate="'required'",
+                  v-validate="'required|decimal'",
                   :error-messages="errors.collect('precio mínimo del pedido')",
                   data-vv-name="precio mínimo del pedido",
                   required
