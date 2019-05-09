@@ -128,13 +128,39 @@ export async function onLogout(apolloClient) {
 
 function _handleGraphQLErrors(graphQLErrors) {
   graphQLErrors.map(({ message, extensions, locations, path }) =>
-    _processGraphQLErrors(message)
+    _processGraphQLErrors(message, extensions)
   )
 }
 
-function _processGraphQLErrors(message) {
-  if (message === 'The user credentials were incorrect.') {
-    _showError(i18n.t('errors.graph.invalid_credentials'))
+function _processGraphQLErrors(message, extensions) {
+  if (extensions.category) {
+    switch (extensions.category) {
+      case 'authentication':
+        _authenticationErrors(message, extensions)
+        break
+      default:
+        _showError(message)
+        break
+    }
+  } else {
+    _showError(message)
+  }
+}
+
+function _authenticationErrors(message, extensions) {
+  switch (message) {
+    case 'Unauthenticated.':
+      console.log('refresh_token')
+      break
+    case 'The user credentials were incorrect.':
+      _showError(i18n.t('errors.graph.invalid_credentials'))
+      break
+    case 'Contraseña actual incorrrecta.':
+      _showError(`${message} ${extensions.reason}`, 'multi-line')
+      break
+    default:
+      _showError(message)
+      break
   }
 }
 
@@ -146,12 +172,13 @@ function _handleNetworkError(networkError) {
   }
 }
 
-function _showError(text) {
+function _showError(text, mode = '') {
   store.dispatch('layout/setSnackbar', {
     show: true,
     y: 'bottom',
     x: 'right',
-    timeout: 5000,
+    mode: mode,
+    timeout: 6000,
     color: 'error',
     text: text
   })
